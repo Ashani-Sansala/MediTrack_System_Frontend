@@ -1,0 +1,22 @@
+
+*{
+    font-family: Poppins, sans-serif;
+}
+.nav_bar_button {
+    height: 40px;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    border: 0px solid #ccc;
+    padding-left: 25px;
+    padding-right: 25px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-left: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.nav_bar_button.clicked {
+    background-color: #c0c0c0; /* Ash color */
+}

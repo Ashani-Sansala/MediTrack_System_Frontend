@@ -1,0 +1,7 @@
+*{
+    font-family: Poppins, sans-serif;
+}
+.nav_bar{
+    display: flex;
+    align-items: center;
+}
