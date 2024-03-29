@@ -32,7 +32,7 @@ const TableComponent = () => {
                             <td>{row[2]}</td>
                             <td>{row[3]}</td>
                             <td>{row[4]}</td>
-                            <a href="#"><td>{row[5]}</td></a>
+                            <td><a href="#">{row[5]}</a></td>
                         </tr>
                     ))}
                 </tbody>
