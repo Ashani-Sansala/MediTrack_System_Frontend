@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/LocationTable.css';
+import '../../styles/LocationTable.scss';
+import DownloadButton from './DownloadButton';
+import '../../styles/DownloadButton.scss';
 
 const TableComponent = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://192.168.8.156:5000/data')
+        fetch('http://192.168.1.148:5000/data')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error('Error:', error));
@@ -37,6 +39,7 @@ const TableComponent = () => {
                     ))}
                 </tbody>
             </table>
+            <DownloadButton data={data} />
         </div>
         
     );
