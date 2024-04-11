@@ -7,6 +7,12 @@
   font-family: "Montserrat", sans-serif;
 }
 
+#root{
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+}
+
 :root{
   --primaryColor: #50CD89;
   --hoverColor: #9ad6b5;
@@ -16,7 +22,6 @@
   --greyText: #bfbfbf;
   --bgColor: #d6ddd5;
   --inputColor: #f8f6f7;
-  --inputColor2: #e2e9e6;
 
   --biggestFontSize: 2.5rem;
   --h1FontSize: 1.5rem;
@@ -100,8 +105,8 @@ img, video{
   box-shadow: 0 7px 50px rgb(214,223,213);
 
   .container{
-    height: 75vh;
-    width: 60%;
+    height: 85vh;
+    width: 85%;
     margin: auto;
     justify-content: space-between;
     border-radius: 10px;
@@ -150,8 +155,8 @@ img, video{
         padding: 0 1rem;
         height: 60px;
         background: rgba(255,255,255,0.248);
-        left: 0;
-        right: 0;
+        left: 10px;
+        right: 10px;
         justify-content: space-between;
         backdrop-filter: blur(1px);
         border-radius: 10px;
@@ -159,6 +164,91 @@ img, video{
 
       .text{
         color: var(--whiteColor);
+      }
+    }
+
+    .formDiv{
+      flex-basis: 50%;
+      margin: auto;
+      flex-direction: column;
+      gap: 1.5rem;
+      transform: translateY(-1rem);
+
+      .headerDiv{
+        text-align: center;
+        padding: 1.5rem 0;
+
+        img{
+          width: 50%;
+          padding-bottom: .5rem;
+        }
+
+        h3{
+          font-size: 25px;
+          color: var(--blackColor);
+          font-weight: 600;
+        }
+      }
+
+      .form{
+        gap: 1rem;
+
+        .inputDiv{
+          .icon{
+            color: var(--greyText);
+          }
+
+          input{
+            background: none;
+            outline: none;
+            border: none;
+            width: 200px;
+          }
+
+          label{
+            color: var(--blackColor);
+            font-weight: 400;
+            font-size: 14px;
+            padding: .5rem 0;
+            display: block;
+          }
+
+          .input{
+            gap: .5rem;
+            padding: 1rem;
+            background: var(--inputColor);
+            border-radius:  10px;
+          }
+        }
+
+        .btn{
+          padding: .8rem;
+          background: var(--primaryColor);
+          border-radius: 10px;
+          color: var(--whiteColor);
+          align-items: center;
+          margin: auto;
+          justify-content: center;
+          font-size: 16px;
+          width: 100%;
+          gap: .5rem;
+          transition: .3s ease;
+
+          .icon{
+            font-size: 25px;
+            transition: .3s ease;
+          }
+
+          &:hover{
+            background: var(--hoverColor);
+            color: var(--blackColor);
+
+            .icon{
+              color: var(--blackColor);
+              transform: translateX(5px);
+            }
+          }
+        }
       }
     }
   }

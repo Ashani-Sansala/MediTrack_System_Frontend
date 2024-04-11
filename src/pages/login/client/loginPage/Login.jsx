@@ -15,12 +15,12 @@ export const Login = () => {
                     <video src={clip} autoPlay muted loop></video>
 
                     <div className="textDiv">
-                        <h2 className="title">Create and Sell Extraordinary Products</h2>
-                        <p>Adopt the peace of nature!</p>
+                        <h2 className="title">Empowering healthcare with innovative system solutions.</h2>
+                        <p>Track, locate, and optimize hospital assets.</p>
                     </div>
 
                     <div className="footerDiv flex">
-                        <span className="text">Have a nice day!</span>
+                        <span className="text">Start tracking hospital assets!</span>
                     </div>
                 </div>
 
@@ -31,7 +31,6 @@ export const Login = () => {
                     </div>
 
                     <form action="" className="form grid">
-                        <span>Login Status will go here</span>
                         <div className="inputDiv">
                             <label htmlFor="username">Username</label>
 
