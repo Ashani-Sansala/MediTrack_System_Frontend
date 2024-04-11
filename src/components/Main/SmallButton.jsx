@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import '../../styles/SmallButton.css';
 
-function SmallButton() {
+const Button = ({ onClick, children, className }) => {
   return (
-    <div>SmallButton</div>
-  )
-}
+      <button className={`button ${className}`} onClick={onClick}>
+        {children}
+      </button>
+  );
+};
 
-export default SmallButton
+export default Button;

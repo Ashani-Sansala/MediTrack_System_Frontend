@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import '../../styles/LongButton.css';
 
-function LongButton() {
-  return (
-    <div>LongButton</div>
-  )
-}
+const LongButton = ({ onClick, children, className }) => {
+    return (
+        <button className={`button ${className}`} onClick={onClick}>
+            {children}
+        </button>
+    );
+};
 
-export default LongButton
+export default LongButton;

@@ -1,9 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../../styles/NavBarButton.css'; // Update import path for CSS file
 
-function NavBarButton() {
-  return (
-    <div>NavBarButton</div>
-  )
-}
+const NavBarButton = ({ to, children, onClick, isActive }) => {
+    return (
+        <Link
+            to={to}
+            className={`nav_bar_button ${isActive ? 'active' : ''}`}  /* Changed from clicked to active */
+            onClick={onClick}
+        >
+            {children}
+        </Link>
+    );
+};
 
-export default NavBarButton
+export default NavBarButton;
