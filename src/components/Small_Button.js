@@ -1,7 +1,7 @@
 import React from 'react';
-import '../../styles/LongButton.css';
+import '../CSS_File/Small_Button.css';
 
-const LongButton = ({ onClick, children, className }) => {
+const Button = ({ onClick, children, className }) => {
     return (
         <button className={`button ${className}`} onClick={onClick}>
             {children}
@@ -9,4 +9,4 @@ const LongButton = ({ onClick, children, className }) => {
     );
 };
 
-export default LongButton;
+export default Button;

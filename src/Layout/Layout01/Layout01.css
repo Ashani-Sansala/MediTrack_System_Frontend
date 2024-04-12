@@ -1,0 +1,27 @@
+
+.TopCont{
+    padding-left: 5%;
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 20px;
+    width: 100%;
+    background-color: white;
+    top: 0;
+    height: 80px;
+}
+
+.BottomCont{
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+    position: absolute;
+}
+.Cont{
+    box-shadow: 10px 5px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 1% 2%;
+    margin: 2% 5%;
+    width: 85%;
+    background-color: white;
+
+}
