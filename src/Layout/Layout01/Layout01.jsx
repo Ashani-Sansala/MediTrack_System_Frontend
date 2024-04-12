@@ -5,6 +5,7 @@ import './Layout01.css'
 
 
 
+
 export default function Layout01() {
     return (
         <div>
@@ -13,7 +14,10 @@ export default function Layout01() {
             </div>
 
             <div className="Cont">
-                <Outlet/>
+                <div className="FormCont">
+
+
+                </div>
             </div>
             <div className="BottomCont">
                 <PageBottom/>

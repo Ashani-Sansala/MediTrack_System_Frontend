@@ -1,5 +1,6 @@
 import React from "react";
 import '../../styles/Login.css'
+import LongButton from "./LongButton.jsx";
 
 const Login = () => {
     return (
@@ -16,7 +17,10 @@ const Login = () => {
                     Password
                     <br/>
                     <input type="password"/>
-
+                    <br />
+                    <LongButton to="/logged/Dashboard" className="long_button_blue">
+                        Log In
+                    </LongButton>
                 </form>
 
             </div>
