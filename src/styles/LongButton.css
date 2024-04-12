@@ -1,7 +1,7 @@
 
 .button.long_button_green {
     width: 95%;
-    height: 60px;
+    height: 50px;
     background-color: #07f64a;
     color: #fff;
     border: none;
@@ -16,11 +16,11 @@
 }
 .button.long_button_blue {
     width: 95%;
-    height: 60px;
+    height: 40px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     border-radius: 10px;
     margin: 15px;

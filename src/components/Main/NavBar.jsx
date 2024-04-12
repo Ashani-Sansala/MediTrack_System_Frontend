@@ -13,7 +13,7 @@ const NavBar = () => {
         <div className="navBar">
             <div className="navButton">
                 <NavBarButton
-                    to="/signin/Dashboard"
+                    to="/logged/Dashboard"
                     onClick={() => handleClick('dashboard')}
                     isActive={activeButton === 'dashboard'}
                 >
@@ -22,7 +22,7 @@ const NavBar = () => {
             </div>
             <div className="navButton">
                 <NavBarButton
-                    to="/signin/VideoFeed"
+                    to="/logged/VideoFeed"
                     onClick={() => handleClick('videoFeed')}
                     isActive={activeButton === 'videoFeed'}
                 >
@@ -31,7 +31,7 @@ const NavBar = () => {
             </div>
             <div className="navButton">
                 <NavBarButton
-                    to="/signin/ManageUsers"
+                    to="/logged/ManageUsers"
                     onClick={() => handleClick('manageUsers')}
                     isActive={activeButton === 'manageUsers'}
                 >
@@ -40,7 +40,7 @@ const NavBar = () => {
             </div>
             <div className="navButton">
                 <NavBarButton
-                    to="/signin/ManageEquipment"
+                    to="/logged/ManageEquipment"
                     onClick={() => handleClick('manageEquipment')}
                     isActive={activeButton === 'manageEquipment'}
                 >

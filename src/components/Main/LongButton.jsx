@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/LongButton.css';
 
-const LongButton = ({ onClick, children, className }) => {
+const LongButton = ({ to,onClick, children, className }) => {
     return (
         <button className={`button ${className}`} onClick={onClick}>
             {children}
