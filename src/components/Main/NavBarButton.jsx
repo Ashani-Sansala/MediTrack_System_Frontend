@@ -1,9 +1,24 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import '../../styles/NavBarButton.css';
 
-function NavBarButton() {
+const NavBarButton = ({ to, children, onClick, isActive }) => {
   return (
-    <div>NavBarButton</div>
-  )
-}
+      <Link
+          to={to}
+          className={`nav_bar_button ${isActive ? 'active' : ''}`}
+          onClick={onClick}
+      >
+        {children}
+      </Link>
+  );
+};
 
-export default NavBarButton
+NavBarButton.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  isActive: PropTypes.bool,
+};
+
+export default NavBarButton;
