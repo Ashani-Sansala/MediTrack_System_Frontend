@@ -1,9 +1,12 @@
-import React from 'react'
+import '../../styles/LongButton.css'
 
-function LongButton() {
+// eslint-disable-next-line react/prop-types
+function LongButton({ onClick, children, className }) {
   return (
-    <div>LongButton</div>
-  )
+      <button className={`button ${className}`} onClick={onClick}>
+          {children}
+      </button>
+  );
 }
 
-export default LongButton
+export default LongButton;
