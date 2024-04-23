@@ -15,7 +15,7 @@ const TableComponent = () => {
     }, []);
 
     const fetchInitialData = () => {
-        fetch(`${api_url}/data`)
+        fetch(`${api_url}/dashboard/data`)
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error('Error:', error));

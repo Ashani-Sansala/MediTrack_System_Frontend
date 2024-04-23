@@ -50,7 +50,7 @@ const SearchBars = ({ onSearch }) => {
         handleSearchChange('floor', selectedFloors.toString());
 
         const searchParams = new URLSearchParams(searchTerms);
-        fetch(`${api_url}/data?${searchParams.toString()}`, {
+        fetch(`${api_url}/dashboard/data?${searchParams.toString()}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
