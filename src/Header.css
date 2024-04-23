@@ -1,0 +1,14 @@
+.header {
+    position: relative; /* Ensure the header is relatively positioned */
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Adjust padding as needed */
+  }
+  
+  .logo {
+    position: absolute; /* Position the logo absolutely */
+    top: -4.3cm; /* Move the logo 10px upwards (adjust value as needed) */
+    left: 0; /* Align the left edge of the logo with the left edge of the header */
+    margin: 10px; /* Add some margin to adjust spacing */
+  }
+  
