@@ -15,7 +15,7 @@ const DownloadButton = ({ data }) => {
   };
 
   return (
-    <button onClick={downloadPdf}>Download PDF</button>
+    <button class="download-button" onClick={downloadPdf}>Download PDF</button>
   );
 };
 

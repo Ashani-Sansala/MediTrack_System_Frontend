@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/LocationTable.scss';
+import SearchBars from './SearchBar';
 import DownloadButton from './DownloadButton';
+import '../../styles/LocationTable.scss';
 import '../../styles/DownloadButton.scss';
+import API_URL from '../../API';
+
+const api_url = API_URL;
 
 const TableComponent = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://192.168.1.148:5000/data')
+        fetchInitialData();
+    }, []);
+
+    const fetchInitialData = () => {
+        fetch(`${api_url}/data`)
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error('Error:', error));
-    }, []);
+    };
+
+    const handleSearch = (searchResults) => {
+        setData(searchResults);
+    };
 
     return (
         <div className="table-container">
+            <SearchBars onSearch={handleSearch} />
             <table>
                 <thead>
                     <tr>
