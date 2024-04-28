@@ -110,7 +110,7 @@ img, video{
     margin: auto;
     justify-content: space-between;
     border-radius: 10px;
-    background: hsl(0, 0%, 91%);
+    background: var(--whiteColor);
 
     .videoDiv{
       position: relative;
@@ -125,6 +125,7 @@ img, video{
       margin: auto;
       border-radius: 10px;
       overflow: hidden;
+      opacity: 0.8;
 
       video, .footerDiv{
         position: absolute;
@@ -250,6 +251,120 @@ img, video{
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 602px){
+  .loginPage{
+    .container{
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      padding: 1.5rem;
+
+      .videoDiv{
+        width: 100%;
+        .textDiv{
+          .title{
+            font-size: 20px;
+          }
+
+          p{
+            padding: 1rem;
+          }
+        }
+
+        .footerDiv{
+          .text{
+            font-size: 12px;
+          }
+
+          .btn{
+            padding: .4rem 1.5rem;
+          }
+        }
+      }
+      .formDiv{
+        gap: 1rem;
+        transform: translateY(-.5rem);
+
+        .headerDiv{
+          padding: 1rem 0;
+
+          img{
+            width: 170px;
+          }
+
+          h3{
+            font-size: 20px;
+          }
+        }
+
+        .form{
+          gap: .5rem;
+
+          .inputDiv{
+            input{
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 678px){
+  .loginPage{
+    .container{
+      .videoDiv{
+        .textDiv{
+          .title{
+            font-size: 20px;
+          }
+
+          p{
+            padding: 1rem;
+          }
+        }
+
+        .footerDiv{
+          .text{
+            font-size: 12px;
+          }
+
+          .btn{
+            padding: .8rem 1.5rem;
+          }
+        }
+      }
+      .formDiv{
+        .headerDiv{
+          padding: 1.5rem 0;
+
+          h3{
+            font-size: 20px;
+          }
+        }
+
+        .form{
+          .inputDiv{
+            input{
+              width: 100%;
+              max-width: 200px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 927px){
+  .loginPage{
+    .container{
+      width: 85%;
     }
   }
 }
