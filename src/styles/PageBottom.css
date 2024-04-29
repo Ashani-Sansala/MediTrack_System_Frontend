@@ -1,0 +1,10 @@
+.Bottom{
+    color: rgba(129, 128, 128, 0.56);
+    padding-top: 1%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+}

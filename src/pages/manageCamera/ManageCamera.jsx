@@ -15,7 +15,9 @@ const ManageCamera = () => {
                     </tr>
                     </thead>
                 </table>
-                <SmallButton className="small_button_green"  onClick={onclick}/>
+                <SmallButton className="small_button_green" onClick={onclick}>
+                    Add New Camera
+                </SmallButton>
             </div>
 
         </div>
