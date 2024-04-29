@@ -1,6 +1,7 @@
 
 import '../../styles/NavBar.css'; // Update import path for CSS file
-import NavBarButton from './NavBarButton'; // Update import path for NavBarButton component
+import NavBarButton from './NavBarButton';
+import {useState} from "react"; // Update import path for NavBarButton component
 
 const NavBar = () => {
     const [activeButton, setActiveButton] = useState(null);
@@ -40,9 +41,9 @@ const NavBar = () => {
             </div>
             <div className="navButton">
                 <NavBarButton
-                    to="/signin/ManageEquipment"
-                    onClick={() => handleClick('manageEquipment')}
-                    isActive={activeButton === 'manageEquipment'}
+                    to="/signin/ManageCamera"
+                    onClick={() => handleClick('manageCamera')}
+                    isActive={activeButton === 'manageCamera'}
                 >
                     Manage Camera
                 </NavBarButton>
