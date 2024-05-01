@@ -1,9 +1,19 @@
-import React from 'react'
+import PropTypes from 'prop-types'; // Import PropTypes for props validation
+import '../../styles/SmallButton.css';
 
-function SmallButton() {
+const SmallButton = ({ onClick, children, className }) => {
   return (
-    <div>SmallButton</div>
-  )
-}
+      <button className={`button ${className}`} onClick={onClick}>
+        {children}
+      </button>
+  );
+};
 
-export default SmallButton
+// PropTypes validation for props
+SmallButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
+
+export default SmallButton;
