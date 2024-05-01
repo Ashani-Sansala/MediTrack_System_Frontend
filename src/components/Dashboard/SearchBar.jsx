@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select } from 'antd';
 import { Input } from 'antd';
 import '../../styles/SearchBars.scss';
@@ -6,22 +6,24 @@ import API_URL from '../../API';
 
 const api_url = API_URL;
 
-const equipmentOptions = [
-    'X-Ray Machine',
-    'Blood Pressure Monitor',
-    'Defibrillator',
-    'Ultrasound Machine',
-    'Centrifuge',
-    'Patient Scale',
-    'Anesthesia Machine',
-    'Crash Cart'
-];
-
-const floorOptions = [
-    1,2,3,4,5,6,7,8
-];
-
 const SearchBars = ({ onSearch }) => {
+
+    const [equipmentOptions, setEquipmentOptions] = useState([]);
+    const [floorOptions, setFloorOptions] = useState([]);
+
+    useEffect(() => {
+        // Fetch equipment options
+        fetch(`${api_url}/dashboard/equipment-options`)
+            .then(response => response.json())
+            .then(data => setEquipmentOptions(data))
+            .catch(error => console.error('Error fetching equipment options:', error));
+
+        // Fetch floor options
+        fetch(`${api_url}/dashboard/floor-options`)
+            .then(response => response.json())
+            .then(data => setFloorOptions(data))
+            .catch(error => console.error('Error fetching floor options:', error));
+    }, []);
     
     const [selectedEquipments, setSelectedEquipments] = useState([]);
     const [selectedFloors, setSelectedFloors] = useState([]);
@@ -50,7 +52,7 @@ const SearchBars = ({ onSearch }) => {
         handleSearchChange('floor', selectedFloors.toString());
 
         const searchParams = new URLSearchParams(searchTerms);
-        fetch(`${api_url}/dashboard/data?${searchParams.toString()}`, {
+        fetch(`${api_url}/dashboard/table?${searchParams.toString()}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
