@@ -1,0 +1,92 @@
+.search-bars-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  height: 40px;
+  gap: 10px; 
+}
+
+// Styles for the Select component when a value is selected
+.ant-select-selection-selected-value {
+  color: black; 
+}
+
+.ant-select-arrow {
+  right: 10px; // Shift arrow to the left
+  svg {
+    width: 10px; // Smaller arrow width
+    height: 10px; // Smaller arrow height
+  }
+}
+
+// Styles for the placeholder and selected value
+.search-bars-container .ant-select-selection-placeholder,
+.search-bars-container .ant-select-selection-selected-value {
+  color: #ccc; 
+}
+
+// After a value is selected, change the color to black
+.search-bars-container .ant-select-selection-item {
+  color: black !important;
+}
+
+.search-bars-container input[type="text"],
+.search-bars-container .search-bars,
+.search-bars-container .ant-select-selector,
+.search-bars-container .ant-input-affix-wrapper {
+  display: flex;
+  flex-grow: 1;
+  align-items: center; 
+  padding: 0;
+  border-radius: 4px;
+  text-align: left;
+  color: black;
+  padding-left: 2px;
+}
+
+.search-bars-container > :last-child {
+  margin-right: 0;
+}
+
+.search-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;
+  width: 730px;
+  vertical-align: middle;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+// New focus styles for all search inputs
+.search-bars-container .search-bars:focus,
+.search-bars-container input[type="text"]:focus,
+.search-bars-container .ant-select-focused .ant-select-selector,
+.search-bars-container .ant-input-affix-wrapper:focus {
+  outline: none;
+  border-color: #007bff; 
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+// Ensure the Select component has the same focus style
+.ant-select-focused .ant-select-selector,
+.ant-select-selector:focus {
+  outline: none;
+  border-color: #007bff; // Same color as the search button
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+// Adjust the placeholder text for all input and select elements
+.search-bars-container input::placeholder,
+.search-bars-container .ant-select-selection-placeholder {
+    color: #ccc;
+    padding-left: 10px;
+}
+
+
