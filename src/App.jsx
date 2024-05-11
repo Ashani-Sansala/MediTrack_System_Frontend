@@ -1,7 +1,7 @@
 //import { useState } from 'react';
 import './App.css';
 
-import LandingPage from './pages/landingPage/landingPage';
+import HistoricalRecords from './pages/historicalRecords/historicalRecords';
 import {Login} from './pages/login/client/loginPage/Login';
 
 //importing react router dom
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
         element: <Login/>
     },
     {
-        path: 'LandingPage',
-        element: <LandingPage/>
+        path: 'HistoricalRecords',
+        element: <HistoricalRecords/>
     }
 ])
 function App() {
