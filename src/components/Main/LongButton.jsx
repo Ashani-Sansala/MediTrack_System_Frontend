@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import '../../styles/LongButton.css';
+import '../../styles/LongButton.scss';
 
 function LongButton({ to, onClick, children, className }) {
     return (

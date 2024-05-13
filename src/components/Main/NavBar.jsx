@@ -1,5 +1,5 @@
 
-import '../../styles/NavBar.css'; // Update import path for CSS file
+import '../../styles/NavBar.scss'; // Update import path for CSS file
 import NavBarButton from './NavBarButton';
 import {useState} from "react"; // Update import path for NavBarButton component
 
