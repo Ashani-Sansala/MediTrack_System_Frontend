@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    font-family: Poppins, sans-serif;
+}
+.title_bar {
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.logo_container img {
+
+    background-color: #ffffff;
+    height: 70px;
+    object-fit: fill;
+}
+.avatar img{
+    width: 50px;
+    border-radius: 10%;
+}
+.avatar_name{
+    color: rgba(129, 128, 128, 0.56);
+    background-color: #ffffff;
+    position: absolute;
+    right: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 10px;
+    padding-left: 2%;
+    height: 50px;
+}
+.name{
+    margin-right: 5px;
+}
+.greeting{
+    font-size: 12px;
+    width: 100%;
+    text-align: right;
+}
