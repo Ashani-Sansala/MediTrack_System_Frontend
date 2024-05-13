@@ -1,8 +1,8 @@
 //import React, { useState, useEffect } from 'react';
 import SearchBars from './SearchBar';
 import DownloadButton from './DownloadButton';
-import '../../styles/LocationTable.scss';
-import '../../styles/DownloadButton.scss';
+import '../../styles/LocationTable.css';
+import '../../styles/DownloadButton.css';
 import API_URL from '../../API';
 
 const api_url = API_URL;
