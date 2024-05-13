@@ -8,35 +8,6 @@ import Layout01 from './layouts/Layout01.jsx';
 import ManageCamera from './pages/manageCamera/ManageCamera.jsx';
 import { Login } from './pages/login/client/loginPage/Login.jsx';
 
-<<<<<<< HEAD
-import HistoricalRecords from './pages/historicalRecords/historicalRecords';
-import {Login} from './pages/login/client/loginPage/Login';
-
-//importing react router dom
-import {
-    createBrowserRouter,
-    RouterProvider
-} from 'react-router-dom'
-
-const router = createBrowserRouter([
-    {
-        path: 'Login',
-        element: <Login/>
-    },
-    {
-        path: 'HistoricalRecords',
-        element: <HistoricalRecords/>
-    }
-])
-function App() {
-  //const [count, setCount] = useState(0)
-
-  return (
-      <div>
-          <RouterProvider router={router}/>
-      </div>
-  )
-=======
 export default function App() {
     return (
         <Router>
@@ -55,5 +26,4 @@ export default function App() {
             </Routes>
         </Router>
     );
->>>>>>> main
 }

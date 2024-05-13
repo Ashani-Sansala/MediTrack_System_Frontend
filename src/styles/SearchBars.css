@@ -6,7 +6,7 @@
   gap: 10px; 
 }
 
-// Styles for the Select component when a value is selected
+/*Styles for the Select component when a value is selected*/
 .ant-select-selection-selected-value {
   color: black; 
 }
@@ -19,13 +19,13 @@
   }
 }
 
-// Styles for the placeholder and selected value
+/*Styles for the placeholder and selected value*/
 .search-bars-container .ant-select-selection-placeholder,
 .search-bars-container .ant-select-selection-selected-value {
   color: #ccc; 
 }
 
-// After a value is selected, change the color to black
+/*After a value is selected, change the color to black*/
 .search-bars-container .ant-select-selection-item {
   color: black !important;
 }
@@ -64,7 +64,7 @@
   background-color: #0056b3;
 }
 
-// New focus styles for all search inputs
+/*New focus styles for all search inputs*/
 .search-bars-container .search-bars:focus,
 .search-bars-container input[type="text"]:focus,
 .search-bars-container .ant-select-focused .ant-select-selector,
@@ -74,7 +74,7 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
 }
 
-// Ensure the Select component has the same focus style
+/*Ensure the Select component has the same focus style*/
 .ant-select-focused .ant-select-selector,
 .ant-select-selector:focus {
   outline: none;
@@ -82,7 +82,7 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
 }
 
-// Adjust the placeholder text for all input and select elements
+/*Adjust the placeholder text for all input and select elements*/
 .search-bars-container input::placeholder,
 .search-bars-container .ant-select-selection-placeholder {
     color: #ccc;

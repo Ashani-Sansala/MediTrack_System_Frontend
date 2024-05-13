@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+//import React, { useState, useEffect } from 'react';
 import SearchBars from './SearchBar';
 import DownloadButton from './DownloadButton';
 import '../../styles/LocationTable.scss';
