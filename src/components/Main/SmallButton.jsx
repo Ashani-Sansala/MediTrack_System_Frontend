@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'; // Import PropTypes for props validation
-import '../../styles/SmallButton.css';
+import '../../styles/SmallButton.scss';
 
 const SmallButton = ({ onClick, children, className }) => {
   return (
