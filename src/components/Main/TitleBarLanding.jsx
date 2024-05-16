@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/TitleBarLanding.css';
+import '../../styles/TitleBarLanding.scss';
 
 const TitleBarLanding = () => {
     return (

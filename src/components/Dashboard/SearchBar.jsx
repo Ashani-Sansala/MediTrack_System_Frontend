@@ -1,7 +1,7 @@
 //import React, { useState, useEffect } from 'react';
 import { Select } from 'antd';
 import { Input } from 'antd';
-import '../../styles/SearchBars.css';
+import '../../styles/SearchBars.scss';
 import API_URL from '../../API';
 
 const api_url = API_URL;

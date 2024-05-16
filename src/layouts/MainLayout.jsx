@@ -2,7 +2,7 @@ import {Outlet} from "react-router-dom";
 import TitleBar from "../components/Main/TitleBar.jsx";
 import NavBar from "../components/Main/NavBar.jsx";
 import PageBottom from "../components/Main/PageBottom.jsx";
-import '../styles/MainLayout.css'
+import '../styles/MainLayout.scss'
 
 
 export default function MainLayout() {

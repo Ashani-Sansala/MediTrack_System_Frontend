@@ -1,5 +1,5 @@
 //import React from 'react';
-import '../../styles/PageBottom.css';
+import '../../styles/PageBottom.scss';
 
 const PageBottom = () => {
     return (

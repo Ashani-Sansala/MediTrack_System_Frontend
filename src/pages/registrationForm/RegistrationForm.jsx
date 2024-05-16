@@ -1,5 +1,5 @@
 import React from 'react';
-import './RegistrationForm.css';
+import './RegistrationForm.scss';
 
 function RegistrationForm() {
   return (

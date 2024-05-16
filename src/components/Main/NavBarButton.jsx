@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import '../../styles/NavBarButton.css';
+import '../../styles/NavBarButton.scss';
 
 const NavBarButton = ({ to, children, onClick, isActive }) => {
   return (
