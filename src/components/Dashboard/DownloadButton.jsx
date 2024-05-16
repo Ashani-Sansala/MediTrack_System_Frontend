@@ -2,7 +2,7 @@
 //import React from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import '../../styles/DownloadButton.css';
+import '../../styles/DownloadButton.scss';
 
 const DownloadButton = ({ data }) => {
   const downloadPdf = () => {
