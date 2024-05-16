@@ -1,11 +1,11 @@
-import './VideoFeed.scss'
+import './landingPage.scss'
 import '../../App.scss'
 
-const videoFeed = () =>{
+const landingPage = () =>{
     return (
         <div>
             <h3>hi</h3>
         </div>
     )
 }
-export default videoFeed
+export default landingPage

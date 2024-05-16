@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
 import VideoFeed from './pages/videoFeed/VideoFeed.jsx';
