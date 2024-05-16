@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import LocationTable from '../../components/Dashboard/LocationTable'; 
 
 const Dashboard = () => {

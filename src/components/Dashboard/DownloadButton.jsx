@@ -1,4 +1,3 @@
-// DownloadButton.js
 import React from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
