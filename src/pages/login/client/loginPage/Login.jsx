@@ -26,7 +26,7 @@ export const Login = () => {
 
             if (response.data.success) {
                 // Redirect to managecamera page if login successful
-                window.location.href = "/signin/managecamera";
+                window.location.href = "/signin/dashboard";
             } else {
                 // Display error message if login unsuccessful
                 setError(response.data.message);

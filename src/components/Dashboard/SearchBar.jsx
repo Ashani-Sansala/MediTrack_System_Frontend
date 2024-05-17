@@ -1,4 +1,4 @@
-//import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Select } from 'antd';
 import { Input } from 'antd';
 import '../../styles/SearchBars.scss';
@@ -113,7 +113,7 @@ const SearchBars = ({ onSearch }) => {
 
         />
 
-        <button class="search-button" onClick={handleSearch}>Search</button>
+        <button className="search-button" onClick={handleSearch}>Search</button>
 
         </div>
     );
