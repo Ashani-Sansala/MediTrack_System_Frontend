@@ -3,7 +3,8 @@
 }
 
 table {
-  width: 100%;
+  margin-left: 10%;
+  width: 80%;
   border-collapse: collapse;
 }
 
@@ -20,4 +21,19 @@ th,tr,td{
 th {
   background-color: #f2f2f2;
   font-weight: bold;
+}
+input{
+  background-color: rgba(211, 209, 209, 0.18);
+  padding: 1%;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 40px;
+  margin-left: 10px;
+}
+.FormCont{
+  margin-top: 20px;
+  margin-left: 60px;
+}
+.ButtonCont{
+  margin-left: 60px;
 }
