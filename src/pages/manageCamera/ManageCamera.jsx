@@ -93,17 +93,26 @@ const ManageCamera = () => {
 
             <PopUp isOpen={isPopUpOpen} onClose={() => setIsPopUpOpen(false)}>
                 <h2>Add New Camera</h2>
-                <form onSubmit={(e) => { e.preventDefault(); addCamera(); }}>
-                    <label>
-                        Location:
-                        <input
-                            type="text"
-                            value={newCameraLocation}
-                            onChange={(e) => setNewCameraLocation(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <button type="submit">Add Camera</button>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    addCamera();
+                }}>
+                    <div className="FormCont">
+                        <label>
+                            Location:
+                            <input
+                                type="text"
+                                value={newCameraLocation}
+                                onChange={(e) => setNewCameraLocation(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <div className="ButtonCont">
+                            <SmallButton type="submit" className="small_button_green">
+                                Add Camera
+                            </SmallButton>
+                        </div>
+                    </div>
                 </form>
             </PopUp>
         </div>
