@@ -3,10 +3,19 @@
     background-color: #0056b3;
 }
 
+.button.small_button_red:hover {
+    background-color: rgba(244, 67, 54, 0.25);
+}
+
+.button.small_button_green:hover {
+    background-color: #006A4E;
+}
+
+
 .button.small_button_green {
-    height: 60px;
+    height: 40px;
     width: 200px;
-    background-color: #07f64a;
+    background-color: #1CAC78;
     color: #fff;
     border: none;
     font-size: 16px;
@@ -15,11 +24,9 @@
     margin: 15px;
 }
 
-.button.small_button_green:hover {
-    background-color: #03be35;
-}
+
 .button.small_button_blue {
-    height: 60px;
+    height: 40px;
     width: 200px;
     background-color: #007bff;
     color: #fff;
@@ -30,3 +37,11 @@
     margin: 15px;
 }
 
+.small_button_red {
+    padding: 5px 10px;
+    background-color: rgba(244, 67, 54, 0.15);
+    color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

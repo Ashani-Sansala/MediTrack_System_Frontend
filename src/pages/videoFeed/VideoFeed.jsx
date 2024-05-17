@@ -1,11 +1,14 @@
-import './VideoFeed.scss'
-import '../../App.scss'
+import React, { useState, useEffect } from 'react';
+import LocationTable from '../../components/Dashboard/LocationTable';
 
-const videoFeed = () =>{
+const Dashboard = () => {
+
     return (
         <div>
-            <h3>hi</h3>
+            <h1>Dashboard</h1>
+            <LocationTable/>
         </div>
-    )
-}
-export default videoFeed
+    );
+};
+
+export default Dashboard;
