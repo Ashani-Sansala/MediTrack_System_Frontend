@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import '../../styles/DownloadButton.scss';
@@ -14,7 +14,7 @@ const DownloadButton = ({ data }) => {
   };
 
   return (
-    <button class="download-button" onClick={downloadPdf}>Download PDF</button>
+    <button className="download-button" onClick={downloadPdf}>Download PDF</button>
   );
 };
 

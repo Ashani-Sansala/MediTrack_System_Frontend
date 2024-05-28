@@ -1,107 +1,107 @@
 .manage-users-container {
-    background-color: white;
-    border-radius: 15px;
-    padding: 20px;
-    width: 80%;
-    margin: 20px auto;
-  
-    .manage-users-header {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  width: 80%;
+  margin: 20px auto;
+
+  .manage-users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      color: #333;
+      margin: 0; // Ensure the title aligns well with the search bar
+    }
+
+    .search-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-  
-      h1 {
-        color: #333;
-        margin: 0; // Ensure the title aligns well with the search bar
-      }
-  
-      .search-container {
-        display: flex;
-        align-items: center;
-  
-        .search-input {
-          padding: 5px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          margin-right: 10px;
-          height: 25px;
-          width: 250px; // Adjust as needed
-  
-          &:focus {
-            border-color: dodgerblue;
-            outline: none;
-          }
-        }
-  
-        .search-button {
-          padding: 10px 20px;
-          background-color: #009dff;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 14px;
-  
-          &:hover {
-            background-color: darken(#00a7ee, 10%);
-          }
+
+      .search-input {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        height: 25px;
+        width: 250px; // Adjust as needed
+
+        &:focus {
+          border-color: dodgerblue;
+          outline: none;
         }
       }
-    }
-  
-    .users-table-container {
-      overflow-x: auto;
-    }
-  
-    .users-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-  
-      th, td {
-        text-align: left;
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-  
-        &:last-child {
-          text-align: right;
+
+      .search-button {
+        padding: 10px 20px;
+        background-color: #009dff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+
+        &:hover {
+          background-color: darken(#00a7ee, 10%);
         }
-      }
-  
-      th {
-        background-color: #f4f4f4;
-      }
-    }
-  
-    .remove-button {
-      padding: 5px 10px;
-      background-color: rgba(244, 67, 54, 0.15); // Lowered opacity
-      color: red; // Changed font color to red
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    
-      &:hover {
-        background-color: rgba(244, 67, 54, 0.25); // Slightly less transparent on hover
-      }
-    }
-    
-  
-    .add-button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      display: block; // to make the button take its own line
-      width: max-content; // to avoid the button stretching
-      margin: 10px 0;
-  
-      &:hover {
-        background-color: darken(#4CAF50, 10%);
       }
     }
   }
+
+  .users-table-container {
+    overflow-x: auto;
+  }
+
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    th, td {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+  }
+
+  .remove-button {
+    padding: 5px 10px;
+    background-color: rgba(244, 67, 54, 0.15); // Lowered opacity
+    color: red; // Changed font color to red
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: rgba(244, 67, 54, 0.25); // Slightly less transparent on hover
+    }
+  }
+  
+
+  .add-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block; // to make the button take its own line
+    width: max-content; // to avoid the button stretching
+    margin: 10px 0;
+
+    &:hover {
+      background-color: darken(#4CAF50, 10%);
+    }
+  }
+}

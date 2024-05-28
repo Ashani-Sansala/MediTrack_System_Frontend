@@ -1,0 +1,110 @@
+/* Background color for the page */
+body {
+    background-color: lightgray;
+  }
+  
+  /* CSS for Register New User form */
+  .registration-container {
+    background-color: white; /* Background color for the registration container */
+    border-radius: 15px; /* Make the border radius more curved */
+    padding: 20px; /* Add some padding */
+    width: 40%; /* Set the width to 30% */
+    margin: 50px auto 0; /* Center the container horizontally and add margin on top */
+  }
+  
+  .registration-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Style for form groups */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for form labels */
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Style for checkbox group */
+  .checkbox-group {
+    display: flex; /* Display checkboxes and labels in a row */
+    align-items: center; /* Align items vertically in the center */
+  }
+  
+  /* Style for checkboxes */
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 10px; /* Add some spacing between checkboxes */
+  }
+  
+  /* Style for button group */
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Style for fillable input fields */
+  .input-field {
+    padding: 10px; /* Add padding to the text fields */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add some border radius */
+    transition: border-color 0.3s ease-in-out; /* Add transition effect for border color */
+    height: 25px;
+    width: 300px;
+  }
+  
+  /* Style for input fields when focused */
+  .input-field:focus {
+    border-color: dodgerblue; /* Change border color when focused */
+    outline: none; /* Remove outline */
+  }
+  
+  /* Style for buttons */
+  .button-group button {
+    padding: 10px 20px; /* Add padding to the buttons */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Add some border radius */
+    color: white; /* Set button font color to white */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Style for Register button */
+  .button-group button:nth-child(1) {
+    background-color: dodgerblue; /* Set background color to blue */
+  }
+  
+  /* Style for Sent Username & Password button */
+  .button-group button:nth-child(2) {
+    background-color: green; /* Set background color to green */
+    margin-left: 30px;
+  }
+  
+  /* Hover effect for buttons */
+  .button-group button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Click effect for buttons */
+  .button-group button:active {
+    opacity: 1.0;
+  }
+  
+  /* Table styling */
+  .registration-table {
+    width: 100%; /* Adjust as needed */
+    border-collapse: separate;
+    border-spacing: 10px 15px; /* Space between rows and columns */
+  }
+  
+  .registration-table td {
+    width: 50%; /* Make each column wider */
+    text-align: left; /* Align table elements to the left of the column */
+  }
+  
+  /* Styling for radio button options */
+  .checkbox-group label {
+    padding-right: 20px; /* Space between radio button options */
+  }

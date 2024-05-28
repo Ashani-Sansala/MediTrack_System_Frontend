@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Select } from 'antd';
-import { Input } from 'antd';
+import PropTypes from 'prop-types';
+import { Select, Input } from 'antd';
 import '../../styles/SearchBars.scss';
 import API_URL from '../../API';
 
 const api_url = API_URL;
 
 const SearchBars = ({ onSearch }) => {
-
     const [equipmentOptions, setEquipmentOptions] = useState([]);
     const [floorOptions, setFloorOptions] = useState([]);
+    const [selectedEquipments, setSelectedEquipments] = useState([]);
+    const [selectedFloors, setSelectedFloors] = useState([]);
+    const [searchTerms, setSearchTerms] = useState({
+        eqpName: '',
+        floor: '',
+        area: '',
+        time_: '',
+    });
 
     useEffect(() => {
         // Fetch equipment options
@@ -24,30 +31,20 @@ const SearchBars = ({ onSearch }) => {
             .then(data => setFloorOptions(data))
             .catch(error => console.error('Error fetching floor options:', error));
     }, []);
-    
-    const [selectedEquipments, setSelectedEquipments] = useState([]);
-    const [selectedFloors, setSelectedFloors] = useState([]);
 
     const availableEquipments = equipmentOptions.filter(
-    (equipment) => !selectedEquipments.includes(equipment));
+        equipment => !selectedEquipments.includes(equipment)
+    );
 
     const availableFloors = floorOptions.filter(
-    (floor) => !selectedFloors.includes(floor));
-
-
-    const [searchTerms, setSearchTerms] = useState({
-        eqpName: '',
-        floor: '',
-        area: '',
-        time_:'',
-    });
+        floor => !selectedFloors.includes(floor)
+    );
 
     const handleSearchChange = (key, value) => {
         setSearchTerms(prevTerms => ({ ...prevTerms, [key]: value }));
     };
 
     const handleSearch = () => {
-
         handleSearchChange('eqpName', selectedEquipments.toString());
         handleSearchChange('floor', selectedFloors.toString());
 
@@ -68,55 +65,54 @@ const SearchBars = ({ onSearch }) => {
 
     return (
         <div className="search-bars-container">
-        
-        <Select
-            className="search-bars"
-            mode="multiple"
-            maxTagCount='responsive'
-            placeholder="Seach by Equipment Name"
-            value={selectedEquipments}
-            onChange={setSelectedEquipments}
-            style={{
-                width: '100%'
-            }}
-            options={availableEquipments.map((item) => ({
-                value: item,
-                label: item,
-            }))}
-        />
+            <Select
+                className="search-bars"
+                mode="multiple"
+                maxTagCount="responsive"
+                placeholder="Search by Equipment Name"
+                value={selectedEquipments}
+                onChange={setSelectedEquipments}
+                style={{ width: '100%' }}
+                options={availableEquipments.map(item => ({
+                    value: item,
+                    label: item,
+                }))}
+            />
 
-        <Select
-            className="search-bars"
-            mode="multiple"
-            maxTagCount='responsive'
-            placeholder="Seach by Floor No"
-            value={selectedFloors}
-            onChange={setSelectedFloors}
-            style={{
-                width: '100%',
-            }}
-            options={availableFloors.map((item) => ({
-                value: item,
-                label: item,
-            }))}
-        />
-        
-        <Input 
-            placeholder="Search by Area" 
-            onChange={(e) => handleSearchChange('area', e.target.value)}
+            <Select
+                className="search-bars"
+                mode="multiple"
+                maxTagCount="responsive"
+                placeholder="Search by Floor No"
+                value={selectedFloors}
+                onChange={setSelectedFloors}
+                style={{ width: '100%' }}
+                options={availableFloors.map(item => ({
+                    value: item,
+                    label: item,
+                }))}
+            />
 
-        />
-        
-        <Input 
-            placeholder="Search by Time" 
-            onChange={(e) => handleSearchChange('time_', e.target.value)}
+            <Input
+                placeholder="Search by Area"
+                onChange={e => handleSearchChange('area', e.target.value)}
+            />
 
-        />
+            <Input
+                placeholder="Search by Time"
+                onChange={e => handleSearchChange('time_', e.target.value)}
+            />
 
-        <button class="search-button" onClick={handleSearch}>Search</button>
-
+            <button className="search-button" onClick={handleSearch}>
+                Search
+            </button>
         </div>
     );
+};
+
+// Add prop types validation
+SearchBars.propTypes = {
+    onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchBars;
