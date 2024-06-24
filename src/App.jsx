@@ -22,6 +22,7 @@ export default function App() {
                     <Route path="ManageCamera" element={<ManageCamera />} />
                     <Route path="VideoFeed" element={<VideoFeed />} />
                     <Route path="ManageUsers" element={<ManageUsers />} />
+                    <Route path="VideoFeed" element={<VideoFeed/>}/>
                 </Route>
             </Routes>
         </Router>
