@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Select, Input } from 'antd';
 import '../../styles/SearchBars.scss';
-import API_URL from '../../API';
 
-const api_url = API_URL;
+const api_url = import.meta.env.VITE_API_URL;
 
 const SearchBars = ({ onSearch }) => {
     const [equipmentOptions, setEquipmentOptions] = useState([]);

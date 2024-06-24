@@ -3,9 +3,8 @@ import SearchBars from './SearchBar';
 import DownloadButton from './DownloadButton';
 import '../../styles/LocationTable.scss';
 import '../../styles/DownloadButton.scss';
-import API_URL from '../../API';
 
-const api_url = API_URL;
+const api_url = import.meta.env.VITE_API_URL;
 
 const TableComponent = () => {
     const [data, setData] = useState([]);
