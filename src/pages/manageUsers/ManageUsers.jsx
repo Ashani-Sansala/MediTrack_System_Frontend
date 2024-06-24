@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ManageUsers.scss';
 
@@ -6,15 +7,7 @@ export default function ManageUsers() {
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
   const [userCount, setUserCount] = useState(0);
-  const [showAddUserModal, setShowAddUserModal] = useState(false);
-  const [newUser, setNewUser] = useState({
-    employee_id: '',
-    name: '',
-    email: '',
-    phone_number: '',
-    register_as: '',
-    position: ''
-  });
+  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     try {
@@ -45,22 +38,8 @@ export default function ManageUsers() {
     }
   };
 
-  const handleAddUser = async () => {
-    try {
-      await axios.post('http://localhost:5000/api/manageUsers/add', newUser);
-      fetchUsers();
-      setShowAddUserModal(false);
-      setNewUser({
-        employee_id: '',
-        name: '',
-        email: '',
-        phone_number: '',
-        register_as: '',
-        position: ''
-      });
-    } catch (error) {
-      console.error('Error adding user:', error);
-    }
+  const handleAddUser = () => {
+    navigate('/logged/RegistrationForm');
   };
 
   return (
@@ -113,58 +92,7 @@ export default function ManageUsers() {
           </tbody>
         </table>
       </div>
-      <button className="add-button" onClick={() => setShowAddUserModal(true)}>Add New User</button>
-
-      {showAddUserModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Add New User</h2>
-            <form>
-              <input
-                type="text"
-                placeholder="Employee ID"
-                value={newUser.employee_id}
-                onChange={(e) => setNewUser({ ...newUser, employee_id: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Name"
-                value={newUser.name}
-                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={newUser.email}
-                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Phone Number"
-                value={newUser.phone_number}
-                onChange={(e) => setNewUser({ ...newUser, phone_number: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="User Type"
-                value={newUser.register_as}
-                onChange={(e) => setNewUser({ ...newUser, register_as: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Position"
-                value={newUser.position}
-                onChange={(e) => setNewUser({ ...newUser, position: e.target.value })}
-              />
-            </form>
-            <div className="modal-buttons">
-              <button className="submit-button" onClick={handleAddUser}>Submit</button>
-              <button className="close-button" onClick={() => setShowAddUserModal(false)}>Close</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <button className="add-button" onClick={handleAddUser}>Add New User</button>
     </div>
   );
 }
-
