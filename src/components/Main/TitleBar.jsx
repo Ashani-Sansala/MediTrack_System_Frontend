@@ -1,33 +1,35 @@
 import React, { useState } from 'react';
 import { Menu, Dropdown, Avatar } from 'antd';
-import { useNavigate  } from 'react-router-dom';
 import '../../styles/TitleBar.scss';
+import ProfileModal from '../EditProfile/EditUserProfile';
+import ResetPassword from '../ResetPassword/ResetPassword'; 
+import useLogout from '../Logout/Logout'; 
 import SecureLS from 'secure-ls';
-import ProfileModal from '../../pages/editUserProfile/EditUserProfile';
 
 const ls = new SecureLS({ encodingType: 'aes' });
 
 const TitleBar = () => {
   const userName = ls.get('userName'); // Retrieve the userName securely
-  const navigate = useNavigate(); // Use useNavigate hook for navigation
-
 
   const [menuVisible, setMenuVisible] = useState(false);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
+  const [resetPasswordModalVisible, setResetPasswordModalVisible] = useState(false);
+
+  const logout = useLogout();
 
   const handleMenuClick = (e) => {
     if (e.key === 'profile') {
       // Show the profile modal
       setProfileModalVisible(true);
       setMenuVisible(false);
-    } 
-    else if (e.key === 'logout') {
-      // Handle logout
-      ls.remove('userName');
-      ls.remove('userID'); // Assuming you have stored userID as well
-      navigate('/'); // Redirect to the login page
+    } else if (e.key === 'reset') {
+      // Show the reset password modal
+      setResetPasswordModalVisible(true);
+      setMenuVisible(false);
+    } else if (e.key === 'logout') {
+      // logout 
+      logout();
     }
-    // Handle other menu options if needed
   };
 
   const menu = (
@@ -64,6 +66,12 @@ const TitleBar = () => {
         <ProfileModal
           visible={profileModalVisible}
           onClose={() => setProfileModalVisible(false)}
+        />
+
+        {/* Reset Password Modal */}
+        <ResetPassword
+          visible={resetPasswordModalVisible}
+          onClose={() => setResetPasswordModalVisible(false)}
         />
       </div>
     </div>
