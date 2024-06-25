@@ -12,10 +12,10 @@
 }
 
 .ant-select-arrow {
-  right: 10px; // Shift arrow to the left
+  right: 10px; 
   svg {
-    width: 10px; // Smaller arrow width
-    height: 10px; // Smaller arrow height
+    width: 10px; 
+    height: 10px; 
   }
 }
 
@@ -24,7 +24,6 @@
 .search-bars-container .ant-select-selection-selected-value {
   color: #ccc; 
 }
-
 
 /*After a value is selected, change the color to black*/
 .search-bars-container .ant-select-selection-item {
@@ -79,7 +78,7 @@
 .ant-select-focused .ant-select-selector,
 .ant-select-selector:focus {
   outline: none;
-  border-color: #007bff; // Same color as the search button
+  border-color: #007bff; 
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
 }
 
