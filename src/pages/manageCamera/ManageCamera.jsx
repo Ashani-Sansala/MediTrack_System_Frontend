@@ -1,4 +1,3 @@
-// src/pages/ManageCamera/ManageCamera.jsx
 import { useState, useEffect } from 'react';
 import SmallButton from '../../components/Main/SmallButton.jsx';
 import PopUp from '../../components/Main/PopUp.jsx';
@@ -11,7 +10,11 @@ const ManageCamera = () => {
     const [cameras, setCameras] = useState([]);
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
     const [newCameraLocation, setNewCameraLocation] = useState('');
+    const [newCameraIp, setNewCameraIp] = useState('');
+    const [newCameraModel, setNewCameraModel] = useState('');
+    const [newCameraInstallationDate, setNewCameraInstallationDate] = useState('');
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         fetchCameras();
@@ -35,51 +38,111 @@ const ManageCamera = () => {
             });
     };
 
-    const addCamera = () => {
-        const newCamera = { Location: newCameraLocation };
-        fetch(`${api_url}/manageCamera/add_camera`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newCamera),
-        })
-            .then(response => response.json())
-            .then(() => {
-                fetchCameras(); // Refresh the camera list after adding a new camera
-                setIsPopUpOpen(false); // Close the popup
-                setNewCameraLocation(''); // Reset the input field
-            })
-            .catch(error => console.error('Error adding camera:', error));
+    const addLocationAndCamera = async () => {
+        try {
+            // Step 1: Add Location
+            const responseLocation = await fetch(`${api_url}/manageCamera/add_location`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ locId: newCameraLocation }),
+            });
+
+            if (!responseLocation.ok) {
+                throw new Error('Failed to add location');
+            }
+
+            // Step 2: Add Camera
+            const newCamera = {
+                locId: newCameraLocation,
+                ipAddress: newCameraIp,
+                model: newCameraModel,
+                installationDate: newCameraInstallationDate,
+            };
+
+            const responseCamera = await fetch(`${api_url}/manageCamera/add_camera`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCamera),
+            });
+
+            if (!responseCamera.ok) {
+                throw new Error('Failed to add camera');
+            }
+
+            // Refresh camera list after successful addition
+            fetchCameras();
+            setSuccessMessage('Camera added successfully');
+            setIsPopUpOpen(false); // Close the popup
+            setNewCameraLocation(''); // Reset the input fields
+            setNewCameraIp('');
+            setNewCameraModel('');
+            setNewCameraInstallationDate('');
+        } catch (error) {
+            console.error('Error adding camera:', error);
+            setError('Failed to add camera');
+        }
     };
 
     const removeCamera = (cameraId) => {
-        fetch(`${api_url}/manageCamera/remove_camera/${cameraId}`, {
+        const url = `${api_url}/manageCamera/remove_camera/${cameraId}`;
+        console.log(`Attempting to remove camera with URL: ${url}`);
+        fetch(url, {
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
-            .then(response => response.json())
-            .then(() => fetchCameras()) // Refresh the camera list after removing a camera
-            .catch(error => console.error('Error removing camera:', error));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to remove camera');
+                }
+                return response.json();
+            })
+            .then(() => {
+                fetchCameras(); // Refresh the camera list after removing a camera
+                setSuccessMessage('Camera removed successfully');
+            })
+            .catch(error => {
+                console.error('Error removing camera:', error);
+                setError('Failed to remove camera');
+            });
     };
 
     return (
         <div className={`table-container ${isPopUpOpen ? 'blur' : ''}`}>
-            {error && <div>Error: {error}</div>}
+            {error && <div className="error">Error: {error}</div>}
+            {successMessage && (
+                <PopUp isOpen={!!successMessage} onClose={() => setSuccessMessage('')}>
+                    <h2>Success</h2>
+                    <p>{successMessage}</p>
+                </PopUp>
+            )}
+            <h1>Manage Camera</h1>
             <table>
                 <thead>
                 <tr>
                     <th>Camera Id</th>
                     <th>Location</th>
+                    <th>IP Address</th>
+                    <th>Model</th>
+                    <th>Installation Date</th>
                     <th>Remove camera</th>
                 </tr>
                 </thead>
                 <tbody>
                 {cameras.map((camera) => (
-                    <tr key={camera.CameraID}>
-                        <td>{camera.CameraID}</td>
-                        <td>{camera.Location}</td>
+                    <tr key={camera.cameraId}>
+                        <td>{camera.cameraId}</td>
+                        <td>{camera.locId}</td>
+                        <td>{camera.ipAddress}</td>
+                        <td>{camera.model}</td>
+                        <td>{camera.installationDate}</td>
                         <td>
-                            <SmallButton className="small_button_red" onClick={() => removeCamera(camera.CameraID)}>
+                            <SmallButton className="small_button_red" onClick={() => removeCamera(camera.cameraId)}>
                                 Remove
                             </SmallButton>
                         </td>
@@ -95,7 +158,7 @@ const ManageCamera = () => {
                 <h2>Add New Camera</h2>
                 <form onSubmit={(e) => {
                     e.preventDefault();
-                    addCamera();
+                    addLocationAndCamera();
                 }}>
                     <div className="FormCont">
                         <label>
@@ -107,7 +170,34 @@ const ManageCamera = () => {
                                 required
                             />
                         </label>
-                        <div className="ButtonCont">
+                        <label>
+                            IP Address:
+                            <input
+                                type="text"
+                                value={newCameraIp}
+                                onChange={(e) => setNewCameraIp(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Model:
+                            <input
+                                type="text"
+                                value={newCameraModel}
+                                onChange={(e) => setNewCameraModel(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Installation Date:
+                            <input
+                                type="date"
+                                value={newCameraInstallationDate}
+                                onChange={(e) => setNewCameraInstallationDate(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <div className="ButtonCont1">
                             <SmallButton type="submit" className="small_button_green">
                                 Add Camera
                             </SmallButton>

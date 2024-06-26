@@ -1,6 +1,4 @@
-// src/components/Modal/PopUp.jsx
 
-import React from 'react';
 import '../../styles/PopUp.scss';
 
 const PopUp = ({ isOpen, onClose, children }) => {

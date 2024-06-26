@@ -2,7 +2,9 @@
     overflow: hidden;
 }
 .TopCont{
+
     position: fixed;
+    z-index: 10;
     padding-left: 5%;
     display: flex;
     justify-content: flex-start;
@@ -23,7 +25,7 @@
     padding-bottom: 5px;
 }
 .Cont{
-    background-color: white;
+    background-color: #ffffff;
     margin-top: -120px;
     position: fixed;
     scale: 0.8;
