@@ -4,11 +4,7 @@
   margin-bottom: 20px;
   height: 40px;
   gap: 10px; 
-}
-
-/*Styles for the Select component when a value is selected*/
-.ant-select-selection-selected-value {
-  color: black; 
+  margin-top: 20px;
 }
 
 .ant-select-arrow {
@@ -17,17 +13,6 @@
     width: 10px; 
     height: 10px; 
   }
-}
-
-/*Styles for the placeholder and selected value*/
-.search-bars-container .ant-select-selection-placeholder,
-.search-bars-container .ant-select-selection-selected-value {
-  color: #ccc; 
-}
-
-/*After a value is selected, change the color to black*/
-.search-bars-container .ant-select-selection-item {
-  color: black !important;
 }
 
 .search-bars-container input[type="text"],
@@ -40,25 +25,19 @@
   padding: 0;
   border-radius: 4px;
   text-align: left;
-  color: black;
-  padding-left: 2px;
+  //color: black;
+  //padding-left: 2px;
 }
 
 .search-bars-container > :last-child {
   margin-right: 0;
 }
 
-.search-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 40px;
-  width: 730px;
-  vertical-align: middle;
+.search-button{
+  width: 140px;
+  height: 40px; 
 }
+
 
 .search-button:hover {
   background-color: #0056b3;
