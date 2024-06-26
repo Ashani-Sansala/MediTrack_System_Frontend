@@ -13,7 +13,7 @@
 
     h1 {
       color: #333;
-      margin: 0; // Ensure the title aligns well with the search bar
+      margin: 0;
     }
 
     .search-container {
@@ -26,7 +26,7 @@
         border-radius: 5px;
         margin-right: 10px;
         height: 25px;
-        width: 250px; // Adjust as needed
+        width: 250px;
 
         &:focus {
           border-color: dodgerblue;
@@ -50,19 +50,33 @@
     }
   }
 
+  .user-count {
+    margin-bottom: 20px;
+    p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+  }
+
   .users-table-container {
+    height: 40vh;
+    overflow-y: auto;
     overflow-x: auto;
+    margin-bottom: 20px;
   }
 
   .users-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 
     th, td {
       text-align: left;
       padding: 8px;
       border-bottom: 1px solid #ddd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &:last-child {
         text-align: right;
@@ -71,22 +85,23 @@
 
     th {
       background-color: #f4f4f4;
+      position: sticky;
+      top: 0;
     }
   }
 
   .remove-button {
     padding: 5px 10px;
-    background-color: rgba(244, 67, 54, 0.15); // Lowered opacity
-    color: red; // Changed font color to red
+    background-color: rgba(244, 67, 54, 0.15);
+    color: red;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   
     &:hover {
-      background-color: rgba(244, 67, 54, 0.25); // Slightly less transparent on hover
+      background-color: rgba(244, 67, 54, 0.25);
     }
   }
-  
 
   .add-button {
     padding: 10px 20px;
@@ -96,12 +111,87 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    display: block; // to make the button take its own line
-    width: max-content; // to avoid the button stretching
+    display: block;
+    width: max-content;
     margin: 10px 0;
 
     &:hover {
       background-color: darken(#4CAF50, 10%);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 400px;
+      max-width: 100%;
+
+      h2 {
+        margin-top: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        input {
+          padding: 10px;
+          margin-top: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          width: 100%;
+          box-sizing: border-box;
+          
+          &:focus {
+            border-color: dodgerblue;
+            outline: none;
+          }
+        }
+      }
+
+      .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .submit-button,
+        .close-button {
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .submit-button {
+          background-color: #4CAF50;
+          color: white;
+
+          &:hover {
+            background-color: darken(#4CAF50, 10%);
+          }
+        }
+
+        .close-button {
+          background-color: #f44336;
+          color: white;
+
+          &:hover {
+            background-color: darken(#f44336, 10%);
+          }
+        }
+      }
     }
   }
 }
