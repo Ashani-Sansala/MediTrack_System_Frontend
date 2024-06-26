@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import SmallButton from '../../components/Main/SmallButton.jsx';
 import PopUp from '../../components/Main/PopUp.jsx';
 import './ManageCamera.scss';
-import API_URL from '../../API';
 
-const api_url = API_URL;
+const api_url = import.meta.env.VITE_API_URL;
 
 const ManageCamera = () => {
     const [cameras, setCameras] = useState([]);

@@ -368,3 +368,19 @@ img, video{
     }
   }
 }
+
+.error {
+  color: red; 
+}
+
+.input {
+  position: relative;
+  
+  .password-toggle {
+      position: absolute;
+      right: 10px;
+      top: 55%;
+      transform: translateY(-50%);
+      cursor: pointer;
+  }
+}
