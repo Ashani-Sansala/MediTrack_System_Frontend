@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Select, Input } from 'antd';
+import { Select, Input, DatePicker } from 'antd';
 import '../../styles/SearchBars.scss';
 
 const api_url = import.meta.env.VITE_API_URL;
@@ -15,18 +15,19 @@ const SearchBars = ({ onSearch }) => {
         floor: '',
         area: '',
         time_: '',
+        date: '',
     });
 
     useEffect(() => {
         // Fetch equipment options
         fetch(`${api_url}/dashboard/equipment-options`)
-    .then(response => response.json())
+            .then(response => response.json())
             .then(data => setEquipmentOptions(data))
             .catch(error => console.error('Error fetching equipment options:', error));
 
         // Fetch floor options
         fetch(`${api_url}/dashboard/floor-options`)
-    .then(response => response.json())
+            .then(response => response.json())
             .then(data => setFloorOptions(data))
             .catch(error => console.error('Error fetching floor options:', error));
     }, []);
@@ -54,7 +55,7 @@ const SearchBars = ({ onSearch }) => {
                 'Content-Type': 'application/json',
             },
         })
-    .then(response => response.json())
+            .then(response => response.json())
             .then(data => {
                 // Update the data in the parent component (TableComponent)
                 onSearch(data);
@@ -95,6 +96,12 @@ const SearchBars = ({ onSearch }) => {
             <Input
                 placeholder="Search by Area"
                 onChange={e => handleSearchChange('area', e.target.value)}
+            />
+
+            <DatePicker
+                placeholder="Search by Date"
+                onChange={(date, dateString) => handleSearchChange('date', dateString)}
+                style={{ width: '100%' }}
             />
 
             <Input

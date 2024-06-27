@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import SearchBars from './SearchBar';
+import SearchBarRecords from './SearchBarRecords';
 import DownloadButton from './DownloadButton';
 import '../../styles/LocationTable.scss';
 import '../../styles/DownloadButton.scss';
@@ -26,7 +26,7 @@ const TableComponent = () => {
 
     return (
         <div className="table-container">
-            <SearchBars onSearch={handleSearch} />
+            <SearchBarRecords onSearch={handleSearch} />
             <table>
                 <thead>
                     <tr>

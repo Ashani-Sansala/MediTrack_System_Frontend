@@ -28,7 +28,7 @@ const NavBar = () => {
             </div>
             <div className="navButton">
                 <NavBarButton
-                    to="/VideoFeed"
+                    to="/signin/VideoFeed"
                     onClick={() => handleClick('videoFeed')}
                     isActive={activeButton === 'videoFeed'}
                 >
