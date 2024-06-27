@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import LocationTable from '../../components/Dashboard/LocationTable'; 
+import './Dashboard.scss';
+
 
 const Dashboard = () => {
 
   return (
-    <div>
+    <div class='container'>
       <h1>Dashboard</h1>
         <LocationTable/>
     </div>

@@ -7,7 +7,7 @@ import '../styles/Layout01.scss'
 
 export default function Layout01() {
     return (
-        <div>
+        <div className="Container">
             <div className="TopCont">
                 <TitleBarLanding/>
             </div>
@@ -18,7 +18,6 @@ export default function Layout01() {
             <div className="BottomCont">
                 <PageBottom/>
             </div>
-
         </div>
     );
 }

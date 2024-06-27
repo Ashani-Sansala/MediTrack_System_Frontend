@@ -18,10 +18,7 @@
     height: 70px;
     object-fit: fill;
 }
-.avatar img{
-    width: 50px;
-    border-radius: 10%;
-}
+
 .avatar_name{
     color: rgba(129, 128, 128, 0.56);
     background-color: #ffffff;
@@ -43,3 +40,15 @@
     text-align: right;
 }
 
+img{
+    cursor: pointer;
+}
+
+.arrow-pointer {
+    cursor: pointer;
+}
+
+.modal-content{
+    overflow: hidden;
+}
+  

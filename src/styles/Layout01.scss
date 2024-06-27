@@ -1,28 +1,32 @@
-
+.Container{
+    overflow: hidden;
+}
 .TopCont{
+    position: fixed;
     padding-left: 5%;
     display: flex;
     justify-content: flex-start;
     padding-top: 20px;
+    padding-bottom: 10px;
     width: 100%;
     background-color: white;
     top: 0;
-    height: 80px;
+    height: 90px;
+
 }
 
 .BottomCont{
     width: 100%;
     background-color: white;
     bottom: 0;
-    position: absolute;
+    position: fixed;
+    padding-bottom: 5px;
 }
 .Cont{
-    box-shadow: 10px 5px 30px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 1% 2%;
-    margin: 2% 5%;
-    width: 85%;
     background-color: white;
-
+    margin-top: -120px;
+    position: fixed;
+    scale: 0.8;
+    height: auto;
 }
 

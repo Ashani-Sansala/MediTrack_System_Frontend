@@ -1,24 +1,35 @@
+*{
 
+}
 .TopContM{
     padding-top: 5px;
     width: 100%;
     background-color: white;
     top: 0;
+    position: fixed;
     height: 150px;
+    margin-bottom: 2%;
+    z-index: 1;
 }
 
-.BottomContM{
+.BottomContM {
     width: 100%;
     background-color: white;
+    position: fixed;
     bottom: 0;
-    position: absolute;
+    left: 0;
+    padding-bottom: 1%;
+    height: 50px;
+
 }
 .ContM{
     box-shadow: 10px 5px 30px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 1% 2%;
-    margin: 2% 5%;
+    margin: 2% 8%;
     width: 85%;
     background-color: white;
+    position: relative;
+    height: auto;
 }
 
