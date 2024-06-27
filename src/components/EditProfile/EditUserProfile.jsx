@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Avatar, Form, Input, DatePicker, Button, message, Space } from 'antd';
-import moment from 'moment';
+import { Modal, Avatar, Form, Input, DatePicker, Button, message } from 'antd';
+import dayjs from 'dayjs';
 import axios from 'axios';
 import SecureLS from 'secure-ls';
+import { nameRules, emailRules, birthdayRules, phoneNoRules } from '../../utils/ValidationRules';
 import './EditUserProfile.scss';
 
 const api_url = import.meta.env.VITE_API_URL;
@@ -16,7 +17,7 @@ const UserProfile = ({ visible, onClose }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const userID = ls.get('userID'); 
+  const username = ls.get('username'); 
 
   useEffect(() => {
     if (visible) {
@@ -27,30 +28,27 @@ const UserProfile = ({ visible, onClose }) => {
   const fetchUserDetails = async () => {
     try {
       const response = await axios.post(`${api_url}/userProfile/getUserProfile`, {
-        userID
+        username
       });
       if (response.data.success) {
         setUserDetails(response.data.userDetails);
         form.setFieldsValue({
-          name: response.data.userDetails.name,
+          fullName: response.data.userDetails.fullName,
           position: response.data.userDetails.position,
           email: response.data.userDetails.email,
-          birthdate: moment(response.data.userDetails.birthday, dateFormat),
+          birthdate: dayjs(response.data.userDetails.birthday, dateFormat),
           phone: response.data.userDetails.phone,
         });
       } else {
         message.error(response.data.message);
       }
     } catch (error) {
-      if (error.response) {
-          if (error.response.status === 404) {
-              message.error('User not found!');
-          } else {
-              message.error('Unable to retrieve your profile details. Please try again!');
-          }
-      } else {
-          message.error('We encountered an issue loading your profile. Please refresh the page!');
-      }
+      const status = error.response?.status;
+      let errorMessage = 'Unable to retrieve your profile details. Please try again!';
+      if (status === 404) {
+          errorMessage = 'User not found!';
+      } 
+      message.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -62,27 +60,25 @@ const UserProfile = ({ visible, onClose }) => {
         ...values,
         birthdate: values.birthdate.format('YYYY-MM-DD'),
         position: userDetails.position, 
-        userID
+        username
       });
       if (response.data.success) {
         message.success('Profile updated successfully');
-        ls.set('userName', values.name);
+        ls.set('fullName', values.fullName);
         onClose();
       } else {
         message.error(response.data.message);
       }
     } catch (error) {
-      if (error.response) {
-          if (error.response.status === 400) {
-              message.error('Invalid position!');
-          } else if (error.response.status === 401) {
-              message.error('You are not logged in!');
-          } else {
-              message.error('Something went wrong. Please try updating your profile again!');
-          }
-      } else {
-          message.error('Something went wrong. Please try updating your profile again!');
-      }
+      const status = error.response?.status;
+      let errorMessage = 'Something went wrong. Please try updating your profile again!';
+  
+      if (status === 400) {
+          errorMessage = 'Invalid position!';
+      } else if (status === 401) {
+          errorMessage = 'You are not logged in!';
+      } 
+      message.error(errorMessage);
     }
   };
 
@@ -102,10 +98,10 @@ const UserProfile = ({ visible, onClose }) => {
       className='modal-content' 
     >
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        <Avatar size="large" src={userDetails?.avatar || '/profile.jpg'} alt={userDetails?.name} />
+        <Avatar size="large" src={userDetails?.avatar || '/profile.jpg'} alt={userDetails?.fullName} />
         <div style={{ marginLeft: '10px' }}>
           <div>Hi,</div>
-          <div><strong>{userDetails?.name}</strong></div>
+          <div><strong>{userDetails?.fullName}</strong></div>
         </div>
       </div>
 
@@ -114,10 +110,10 @@ const UserProfile = ({ visible, onClose }) => {
         form={form}
         onFinish={onFinish}
         initialValues={{
-          name: userDetails?.name,
+          fullName: userDetails?.fullName,
           position: userDetails?.position,
           email: userDetails?.email,
-          birthdate: moment(userDetails?.birthdate, dateFormat),
+          birthdate: dayjs(userDetails?.birthdate, dateFormat),
           phone: userDetails?.phone,
         }}
       >
@@ -126,9 +122,9 @@ const UserProfile = ({ visible, onClose }) => {
         </div>
 
         <Form.Item
-          name="name"
-          label="Name"
-          rules={[{ required: true, message: 'Please enter your name' }]}
+          name="fullName"
+          label="Full Name"
+          rules={[...nameRules]}
         >
           <Input />
         </Form.Item>
@@ -142,7 +138,7 @@ const UserProfile = ({ visible, onClose }) => {
         <Form.Item
           name="email"
           label="Email"
-          rules={[{ required: true, message: 'Please enter your email' }]}
+          rules={[...emailRules]}
         >
           <Input />
         </Form.Item>
@@ -150,17 +146,15 @@ const UserProfile = ({ visible, onClose }) => {
         <Form.Item
           name="birthdate"
           label="Birthdate"
-          rules={[{ required: true, message: 'Please enter your birthdate' }]}
+          rules={[...birthdayRules]}
         >
-          
-        <DatePicker defaultValue={userDetails.birthdate} format={dateFormat} />
-          
+          <DatePicker format={dateFormat} />
         </Form.Item>
 
         <Form.Item
           name="phone"
           label="Phone Number"
-          rules={[{ required: true, message: 'Please enter your phone number' }]}
+          rules={[...phoneNoRules]}
         >
           <Input />
         </Form.Item>

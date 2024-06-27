@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, Input, Button, message } from 'antd';
 import axios from 'axios';
 import SecureLS from 'secure-ls';
 import encrypt from "../../utils/Encryption";
+import { passwordRules, validateDifferentFromCurrentPassword } from '../../utils/ValidationRules';
 
 const api_url = import.meta.env.VITE_API_URL;
 
@@ -10,104 +11,106 @@ const ResetPassword = ({ visible, onClose }) => {
 
     const [loading, setLoading] = useState(false);
     const ls = new SecureLS({ encodingType: 'aes' });
-    const [form] = Form.useForm();  
+    const [form] = Form.useForm();
 
     const handleFinish = async (values) => {
         setLoading(true);
-        const userID = ls.get('userID');
+        const username = ls.get('username');
 
-        const encryptedOldPassword = encrypt(values.oldPassword); 
+        const encryptedCurrentPassword = encrypt(values.currentPassword);
         const encryptedNewPassword = encrypt(values.newPassword);
 
         try {
             const response = await axios.post(`${api_url}/userProfile/resetPassword`, {
-                userID,
-                oldPassword: encryptedOldPassword.value,
+                username,
+                currentPassword: encryptedCurrentPassword.value,
                 newPassword: encryptedNewPassword.value,
-                oldPasswordIv: encryptedOldPassword.iv,
+                currentPasswordIv: encryptedCurrentPassword.iv,
                 newPasswordIv: encryptedNewPassword.iv
             });
 
             if (response.data.success) {
                 message.success('Password reset successfully');
-                form.resetFields(); 
+                form.resetFields();
                 onClose();
             } else {
                 message.error(response.data.message);
             }
         } catch (error) {
-            if (error.response) {
-                if (error.response.status === 400) {
-                    message.error('Invalid request or missing fields.');
-                } else if (error.response.status === 401) {
-                    message.error('Old password is incorrect!');
-                } else {
-                    message.error('Something went wrong. Please try to reset your password again!');
-                }
-            } else {
-                message.error('Something went wrong. Please try to reset your password again!');
+            const status = error.response?.status;
+            let errorMessage = 'Something went wrong. Please try to reset your password again!';
+
+            if (status === 400) {
+                errorMessage = 'Invalid request or missing fields!';
+            } else if (status === 401) {
+                errorMessage = 'Current password is incorrect!';
             }
+
+            message.error(errorMessage);
         } finally {
             setLoading(false);
         }
     };
 
     const handleCancel = () => {
-        form.resetFields(); 
+        form.resetFields();
         onClose();
     };
 
     return (
         <Modal
-            title="Reset Password"
-            visible={visible}
-            onCancel={handleCancel}  
-            footer={null}
+        title="Reset Password"
+        visible={visible}
+        onCancel={handleCancel}
+        footer={null}
+    >
+        <Form
+            form={form}
+            layout="vertical"
+            onFinish={handleFinish}
         >
-            <Form
-                form={form}  
-                layout="vertical"
-                onFinish={handleFinish}
+            <Form.Item
+                name="currentPassword"
+                label="Current Password"
+                rules={[{ required: true, message: 'Please enter your current password' }]}
             >
-                <Form.Item
-                    name="oldPassword"
-                    label="Old Password"
-                    rules={[{ required: true, message: 'Please enter your old password' }]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item
-                    name="newPassword"
-                    label="New Password"
-                    rules={[{ required: true, message: 'Please enter your new password' }]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item
-                    name="confirmPassword"
-                    label="Confirm New Password"
-                    dependencies={['newPassword']}
-                    rules={[
-                        { required: true, message: 'Please confirm your new password' },
-                        ({ getFieldValue }) => ({
-                            validator(_, value) {
-                                if (!value || getFieldValue('newPassword') === value) {
-                                    return Promise.resolve();
-                                }
-                                return Promise.reject(new Error('The two passwords do not match'));
-                            },
-                        }),
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={loading}>
-                        Reset Password
-                    </Button>
-                </Form.Item>
-            </Form>
-        </Modal>
+                <Input.Password />
+            </Form.Item>
+            <Form.Item
+                name="newPassword"
+                label="New Password"
+                rules={[
+                    ...passwordRules, 
+                    validateDifferentFromCurrentPassword
+                ]}
+            >
+                <Input.Password />
+            </Form.Item>
+            <Form.Item
+                name="confirmPassword"
+                label="Confirm New Password"
+                dependencies={['newPassword']}
+                rules={[
+                    { required: true, message: 'Please confirm your new password' },
+                    ({ getFieldValue }) => ({
+                        validator(_, value) {
+                            if (!value || getFieldValue('newPassword') === value) {
+                                return Promise.resolve();
+                            }
+                            return Promise.reject(new Error('The two passwords do not match'));
+                        },
+                    }),
+                ]}
+            >
+                <Input.Password />
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                    Reset Password
+                </Button>
+            </Form.Item>
+        </Form>
+    </Modal>
     );
 };
 
