@@ -48,6 +48,9 @@ const SearchBars = ({ onSearch }) => {
         handleSearchChange('eqpName', selectedEquipments.toString());
         handleSearchChange('floor', selectedFloors.toString());
 
+        // Log the search terms for debugging
+        console.log('Search Terms:', searchTerms);
+
         const searchParams = new URLSearchParams(searchTerms);
         fetch(`${api_url}/dashboard/table?${searchParams.toString()}`, {
             method: 'POST',
