@@ -7,7 +7,7 @@ import VideoFeed from './pages/videoFeed/VideoFeed.jsx';
 import ManageUsers from './pages/manageUsers/ManageUsers.jsx';
 import Layout01 from './layouts/Layout01.jsx';
 import ManageCamera from './pages/manageCamera/ManageCamera.jsx';
-import { Login } from './pages/login/client/loginPage/Login.jsx';
+import { Login } from './pages/login/Login.jsx';
 import HistoricalRecords from "./pages/historicalRecords/historicalRecords.jsx";
 
 

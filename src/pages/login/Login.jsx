@@ -1,4 +1,4 @@
-import "../../../../App.scss";
+import "../../App.scss";
 import "./Login.scss";
 import clip from "./loginAssets/clip.mp4";
 import logo from "./loginAssets/logo.png";
