@@ -9,12 +9,13 @@ import Layout01 from './layouts/Layout01.jsx';
 import ManageCamera from './pages/manageCamera/ManageCamera.jsx';
 import { Login } from './pages/login/client/loginPage/Login.jsx';
 import useLogout from './components/Logout/Logout.jsx'; 
+import HistoricalRecords from './pages/historicalRecords/HistoricalRecords.jsx';
 import './App.scss';
 
 const admin_userid = import.meta.env.VITE_ADMIN_USERID;
 
 const ls = new SecureLS({ encodingType: 'aes' });
-const pID = ls.get('pID'); // Retrieve the userID securely
+const pID = ls.get('pID'); 
 
 function ProtectedRoute({ element, allowedPIDs }) {
     const logout = useLogout();
@@ -37,6 +38,7 @@ export default function App() {
                 </Route>
                 <Route path="/" element={<MainLayout />}>
                     <Route path="Dashboard" element={<Dashboard />} />
+                    <Route path="HistoricalRecords" element={<HistoricalRecords />} />
                     <Route path="ManageCamera" element={
                         <ProtectedRoute element={<ManageCamera />} allowedPIDs={[admin_userid]} />
                     } />
@@ -45,6 +47,7 @@ export default function App() {
                     <Route path="ManageUsers" element={
                         <ProtectedRoute element={<ManageUsers />} allowedPIDs={[admin_userid]} />
                     } />
+                    <Route path="VideoFeed" element={<VideoFeed/>}/>
 
                 </Route>
             </Routes>

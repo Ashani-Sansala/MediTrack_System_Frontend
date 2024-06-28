@@ -1,7 +1,8 @@
 import '../../styles/NavBar.scss';
 import NavBarButton from './NavBarButton';
-import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import SecureLS from 'secure-ls';
+import { useEffect, useState } from 'react';
 
 const admin_userid = import.meta.env.VITE_ADMIN_USERID;
 
@@ -9,56 +10,67 @@ const ls = new SecureLS({ encodingType: 'aes' });
 const pID = ls.get('pID'); 
 
 const NavBar = () => {
-    const [activeButton, setActiveButton] = useState(null);
+  const location = useLocation();
+  const [activeButton, setActiveButton] = useState(null);
 
-    const handleClick = (buttonId) => {
-        setActiveButton(buttonId); // Set the active button when clicked
-    };
+  useEffect(() => {
+    setActiveButton(location.pathname);
+  }, [location.pathname]);
 
-    return (
-        <div className="navBar">
-            <div className="navButton">
-                <NavBarButton
-                    to="/Dashboard"
-                    onClick={() => handleClick('dashboard')}
-                    isActive={activeButton === 'dashboard'}
-                >
-                    Dashboard
-                </NavBarButton>
-            </div>
-            <div className="navButton">
-                <NavBarButton
-                    to="/VideoFeed"
-                    onClick={() => handleClick('videoFeed')}
-                    isActive={activeButton === 'videoFeed'}
-                >
-                    Video Feed
-                </NavBarButton>
-            </div>
-            {pID === admin_userid && (
-                <>
-                    <div className="navButton">
-                        <NavBarButton
-                            to="/ManageUsers"
-                            onClick={() => handleClick('manageUsers')}
-                            isActive={activeButton === 'manageUsers'}
-                        >
-                            Manage User Account
-                        </NavBarButton>
-                    </div>
-                    <div className="navButton">
-                        <NavBarButton
-                            to="/ManageCamera"
-                            onClick={() => handleClick('manageCamera')}
-                            isActive={activeButton === 'manageCamera'}
-                        >
-                            Manage Camera
-                        </NavBarButton>
-                    </div>
-                </>
-            )}
-        </div>
-    );
+  return (
+    <div className="navBar">
+      <div className="navButton">
+        <NavBarButton
+          to="/Dashboard"
+          onClick={() => setActiveButton('/Dashboard')}
+          isActive={activeButton === '/Dashboard'}
+        >
+          Dashboard
+        </NavBarButton>
+      </div>
+      <div className="navButton">
+        <NavBarButton
+          to="/VideoFeed"
+          onClick={() => setActiveButton('/VideoFeed')}
+          isActive={activeButton === '/VideoFeed'}
+        >
+          Video Feed
+        </NavBarButton>
+      </div>
+      <div className="navButton">
+        <NavBarButton
+          to="/HistoricalRecords"
+          onClick={() => setActiveButton('/HistoricalRecords')}
+          isActive={activeButton === '/HistoricalRecords'}
+        >
+          Historical Records
+        </NavBarButton>
+      </div>
+
+      {pID === admin_userid && (
+        <>
+          <div className="navButton">
+            <NavBarButton
+              to="/ManageUsers"
+              onClick={() => setActiveButton('/ManageUsers')}
+              isActive={activeButton === '/ManageUsers'}
+            >
+              Manage Users
+            </NavBarButton>
+          </div>
+          <div className="navButton">
+            <NavBarButton
+              to="/ManageCamera"
+              onClick={() => setActiveButton('/ManageCamera')}
+              isActive={activeButton === '/ManageCamera'}
+            >
+              Manage Camera
+            </NavBarButton>
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default NavBar;
