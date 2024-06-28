@@ -1,8 +1,8 @@
 export const usernameRules = [
     { required: true, message: 'Please enter the username' },
     { 
-        pattern: /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/, 
-        message: 'Username must be 6-30 characters long, start with a letter, and can contain only alphanumeric characters and underscores' 
+        pattern: /^[a-zA-Z][a-zA-Z0-9_]{5,49}$/, 
+        message: 'Username must be 6-50 characters long, start with a letter, and can contain only alphanumeric characters and underscores' 
     }
 ];
 
@@ -23,9 +23,8 @@ export const passwordRules = [
 ];
 
 export const emailRules = [
-    { required: true, message: 'Please enter the email' },
     { type: 'email', message: 'Please enter a valid email' },
-    { max: 50, message: 'Email cannot exceed 50 characters' }
+    { max: 100, message: 'Email cannot exceed 100 characters' }
 ];
 
 export const birthdayRules = [
@@ -51,3 +50,22 @@ export const validateDifferentFromCurrentPassword = ({ getFieldValue }) => ({
 });
 
 
+export const locationRules = [
+    { required: true, message: 'Please select location' }
+];
+
+export const ipAddressRules = [
+    { required: true, message: 'Please enter IP address' }
+];
+
+export const modelRules = [
+    { required: true, message: 'Please enter camera model' }
+];
+
+export const installationDateRules = [
+    { required: true, message: 'Please enter installation date' }
+];
+
+export const cameraStatusRules = [
+    { required: true, message: 'Please enter camera status' }
+];
