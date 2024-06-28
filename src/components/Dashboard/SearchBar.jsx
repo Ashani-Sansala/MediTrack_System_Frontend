@@ -32,7 +32,7 @@ const SearchBars = ({ onSearch }) => {
     useEffect(() => {
         // Fetch equipment options
         fetch(`${api_url}/dashboard/equipment-options`)
-            .then(response => response.json())
+    .then(response => response.json())
             .then(data => setEquipmentOptions(data))
             .catch(error => console.error('Error fetching equipment options:', error));
 
@@ -44,7 +44,7 @@ const SearchBars = ({ onSearch }) => {
 
         // Fetch all floor options initially
         fetch(`${api_url}/dashboard/floor-options`)
-            .then(response => response.json())
+    .then(response => response.json())
             .then(data => setFloorOptions(data))
             .catch(error => console.error('Error fetching floor options:', error));
 
@@ -114,7 +114,7 @@ const SearchBars = ({ onSearch }) => {
                 'Content-Type': 'application/json',
             },
         })
-            .then(response => response.json())
+    .then(response => response.json())
             .then(data => {
                 // Update the data in the parent component (TableComponent)
                 onSearch(data);
