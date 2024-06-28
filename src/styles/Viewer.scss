@@ -1,0 +1,78 @@
+/* Viewer.scss */
+
+.video-feed {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.viewers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows */
+  gap: 5px; /* Gap between items */
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.viewer {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewer-name {
+  margin-bottom: 10px;
+}
+
+.viewer-video {
+  width: 100%;
+  height: auto;
+}
+
+.pagination {
+  margin-top: 30px; /* Adjust margin as needed */
+  display: flex;
+  justify-content: center;
+}
+
+.pagination button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  margin: 0 5px;
+  padding: 2px 6px;
+  background-color: #596473;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Scale the selected viewer to fill the grid */
+.viewer-item.selected {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  width: 100% !important;
+  height: 100% !important;
+}

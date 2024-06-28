@@ -1,70 +1,57 @@
 .video-feed-container {
-    display: flex;
-    padding: 20px;
-  }
-  
-  .sidebar {
-    width: 15%;
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
-    align-self: flex-start;
-  
-    h3 {
-      margin-bottom: 10px;
-    }
-  
-    .floor-list {
-      list-style-type: none;
-      padding: 0;
-  
-      h4 {
-        margin-bottom: 10px;
-        margin-left: -40px;
-      }
-    }
-  
-    .camera-list {
-      list-style-type: none;
-      padding-left: 20px;
-      margin: 0;
-  
-      li {
-        margin-bottom: 10px;
-      }
-    }
-  
-    input[type="checkbox"] {
-      margin-right: 10px;
-    }
-  }
-  
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 100%;
-  }
-  
-  .video-box {
-    background-color: #ddd;
-    padding: 10px;
-    margin: 0px 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    height: 325px; /* Fixed height for consistency */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    video {
-      height: 100%; /* Fixed height for the video */
-      max-width: 100%; /* Make sure the video width doesn't exceed the container */
-      border-radius: 10px;
-      object-fit: contain; /* Ensure the video maintains its aspect ratio */
-    }
-  }
-  
+
+  display: flex;
+}
+
+.video-feed {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.side-nav {
+  width: 300px;
+  padding: 20px;
+  background-color: #efecec;
+  border-right: 1px solid rgba(255, 250, 250, 0.4);
+}
+.video-feed {
+  padding: 20px;
+}
+
+.viewers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.viewer-item {
+  width: 320px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination button {
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  background-color: #596473;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
