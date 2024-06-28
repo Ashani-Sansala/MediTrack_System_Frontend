@@ -1,39 +1,22 @@
-.table-container {
-  margin-top: 20px;
+.button-container {
+  display: flex;
+  text-align: right;
+  margin-bottom: 20px;
+  margin-bottom: 20px;
+
+  Button{
+    height: 40px;
+  }
 }
 
-table {
-  margin-left: 10%;
-  width: 80%;
-  border-collapse: collapse;
+.camera-status-disabled {
+  color: red;
 }
 
-th, td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+.camera-status-active {
+  color: green;
 }
 
-th,tr,td{
-  height: 40px;
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-input{
-  background-color: rgba(211, 209, 209, 0.18);
-  padding: 1%;
-  border-radius: 5px;
-  font-size: 16px;
-  height: 40px;
-  margin-left: 10px;
-}
-.FormCont{
-  margin-top: 20px;
-  margin-left: 60px;
-}
-.ButtonCont{
-  margin-left: 60px;
+.camera-status-under-maintenance {
+  color: orange;
 }
