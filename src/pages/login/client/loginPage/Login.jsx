@@ -44,7 +44,7 @@ export const Login = () => {
                 ls.set('username', data.username);
                 ls.set('fullName', data.fullName);
                 ls.set('pID', data.pID);
-                window.location.href = "/dashboard";
+                window.location.href = "/Dashboard";
             } else {
                 setError(data.message);
             }
