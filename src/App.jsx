@@ -43,10 +43,12 @@ export default function App() {
                         <ProtectedRoute element={<ManageCamera />} allowedPIDs={[admin_userid]} />
                     } />
                     <Route path="VideoFeed" element={<VideoFeed />} />
+
                     <Route path="ManageUsers" element={
                         <ProtectedRoute element={<ManageUsers />} allowedPIDs={[admin_userid]} />
                     } />
                     <Route path="VideoFeed" element={<VideoFeed/>}/>
+
                 </Route>
             </Routes>
         </Router>

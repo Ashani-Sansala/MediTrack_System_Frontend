@@ -13,6 +13,7 @@ const admin_userid = import.meta.env.VITE_ADMIN_USERID;
 
 const dateFormat = 'YYYY-MM-DD';
 
+
 export default function ManageUsers() {
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
@@ -204,6 +205,9 @@ export default function ManageUsers() {
           </Button>
           
         </div>
+      </div>
+      <div className="user-count">
+        <p>Total Users: {userCount}</p>
       </div>
       <div className="users-table-container">
         <Table dataSource={users} columns={columns} rowKey="username" />
