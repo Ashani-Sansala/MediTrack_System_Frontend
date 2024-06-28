@@ -9,7 +9,7 @@ import SecureLS from 'secure-ls';
 const ls = new SecureLS({ encodingType: 'aes' });
 
 const TitleBar = () => {
-  const userName = ls.get('userName'); // Retrieve the userName securely
+  const fullName = ls.get('fullName'); // Retrieve the fullName securely
 
   const [menuVisible, setMenuVisible] = useState(false);
   const [profileModalVisible, setProfileModalVisible] = useState(false);
@@ -43,12 +43,12 @@ const TitleBar = () => {
   return (
     <div className="title_bar">
       <div className="logo_container">
-        <a href='/Dashboard'><img src='/meditracker.png' alt='Logo'/></a>
+        <a href='/Dashboard'><img src='src\assets\logo.png' alt='Logo'/></a>
       </div>
       <div className="avatar_name">
         <div className="name">
           <div className="greeting">Hi,</div>
-          <div className="user_name">{userName || 'User'}</div>
+          <div className="user_name">{fullName || 'User'}</div>
         </div>
         <Dropdown
           overlay={menu}
@@ -58,7 +58,7 @@ const TitleBar = () => {
           placement='bottomRight'
         >
           <div className="avatar" onClick={() => setMenuVisible(!menuVisible)}>
-            <Avatar size={60} src='/profile.jpg' alt='Profile' />
+            <Avatar size={60} src='src\assets\profile.jpg' alt='Profile' />
           </div>
         </Dropdown>
 

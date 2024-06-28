@@ -98,7 +98,7 @@ const UserProfile = ({ visible, onClose }) => {
       className='modal-content' 
     >
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-        <Avatar size="large" src={userDetails?.avatar || '/profile.jpg'} alt={userDetails?.fullName} />
+        <Avatar size="large" src={userDetails?.avatar || 'src/assets/profile.jpg'} alt={userDetails?.fullName} />
         <div style={{ marginLeft: '10px' }}>
           <div>Hi,</div>
           <div><strong>{userDetails?.fullName}</strong></div>
