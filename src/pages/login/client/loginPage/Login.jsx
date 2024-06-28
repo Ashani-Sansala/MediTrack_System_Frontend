@@ -5,8 +5,8 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import SecureLS from 'secure-ls';
 import axios from "axios";
-import clip from "./loginAssets/clip.mp4";
-import logo from "./loginAssets/logo.png";
+import clip from "../../../../assets/clip.mp4";
+import logo from "../../../../assets/logo.png";
 import encrypt from "../../../../utils/Encryption";
 import "./Login.scss";
 
@@ -41,27 +41,26 @@ export const Login = () => {
             const data = response.data;
 
             if (data.success) {
-                ls.set('userID', data.userID);
-                ls.set('userName', data.userName);
+                ls.set('username', data.username);
+                ls.set('fullName', data.fullName);
                 ls.set('pID', data.pID);
                 window.location.href = "/dashboard";
             } else {
                 setError(data.message);
             }
         } catch (error) {
-            if (error.response) {
-                if (error.response.status === 400) {
-                    setError('Invalid request or missing required fields.');
-                } else if (error.response.status === 401) {
-                    setError('Invalid password!');
-                } else if (error.response.status === 404) {
-                    setError('Invalid username!');
-                } else {
-                    setError('Something went wrong. Please try again!');
-                }
-            } else {
-                setError('Something went wrong. Please try again!');
+            const status = error.response?.status;
+            let errorMessage = 'Something went wrong. Please try again!';
+        
+            if (status === 400) {
+                errorMessage = 'Invalid request or missing required fields.';
+            } else if (status === 401) {
+                errorMessage = 'Invalid password!';
+            } else if (status === 404) {
+                errorMessage = 'Invalid username!';
             }
+        
+            setError(errorMessage);
         }
     };
 
