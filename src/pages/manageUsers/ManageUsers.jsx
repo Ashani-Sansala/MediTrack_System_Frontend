@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker } from 'antd';
@@ -212,7 +213,6 @@ export default function ManageUsers() {
       <div className="users-table-container">
         <Table dataSource={users} columns={columns} rowKey="username" />
       </div>
-      
 
       <Modal
         title="Add New User"
