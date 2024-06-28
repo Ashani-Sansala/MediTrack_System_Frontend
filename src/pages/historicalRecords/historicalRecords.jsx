@@ -1,6 +1,6 @@
 import LocationTable from '../../components/Dashboard/LocationTable';
 
-const historicalRecords = () => {
+const HistoricalRecords = () => {
 
     return (
         <div>
@@ -9,4 +9,4 @@ const historicalRecords = () => {
     );
 };
 
-export default historicalRecords;
+export default HistoricalRecords;
