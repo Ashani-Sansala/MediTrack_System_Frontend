@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Input, Button, Modal, Form, Select, message, Popconfirm } from 'antd';
+import dayjs from 'dayjs';
+import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker } from 'antd';
 import { usernameRules, nameRules, emailRules, 
-         passwordRules, birthdayRules, phoneNoRules } from '../../utils/ValidationRules';
+         passwordRules, birthdayRules, phoneNoRules, 
+         positionRules} from '../../utils/ValidationRules';
 import encrypt from '../../utils/Encryption'; 
 import './ManageUsers.scss'
 
 const api_url = import.meta.env.VITE_API_URL;
 const admin_userid = import.meta.env.VITE_ADMIN_USERID;
+
+const dateFormat = 'YYYY-MM-DD';
 
 export default function ManageUsers() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,8 +23,9 @@ export default function ManageUsers() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${api_url}/manageUsers/search`, {
+      const response = await axios.get(`${api_url}/manageUsers/getData`, {
         params: { search: searchTerm },
+        birthday: dayjs(users.birthday).format(dateFormat)
       });
       setUsers(response.data);
       setUserCount(response.data.length);
@@ -32,7 +37,7 @@ export default function ManageUsers() {
 
   const fetchPositions = async () => {
     try {
-      const response = await axios.get(`${api_url}/manageUsers/positions`);
+      const response = await axios.get(`${api_url}/manageUsers/positionData`);
       setPositions(response.data);
     } catch (error) {
       console.error('Error fetching positions:', error);
@@ -102,6 +107,7 @@ export default function ManageUsers() {
       const response = await axios.post(`${api_url}/manageUsers/add`, {
         ...encryptedData,
         pId: positions.find((pos) => pos.positionName === values.positionName).pId,
+        birthday: values.birthday.format(dateFormat), // Format the date here
       });
       if (response.status === 201) {
         fetchUsers();
@@ -141,7 +147,8 @@ export default function ManageUsers() {
       title: 'Birthday',
       dataIndex: 'birthday',
       key: 'birthday',
-      render: (text) => new Date(text).toISOString().split('T')[0],
+      // render: (text) => new Date(text).toISOString().split('T')[0],
+      render: (text) => dayjs(text).format(dateFormat)
     },
     {
       title: 'Phone Number',
@@ -215,7 +222,7 @@ export default function ManageUsers() {
             name="username"
             rules={[...usernameRules]}
           >
-            <Input />
+            <Input placeholder="Enter Username" />
           </Form.Item>
 
           <Form.Item 
@@ -223,7 +230,7 @@ export default function ManageUsers() {
             name="fullName" 
             rules={[...nameRules]}
           >
-            <Input />
+            <Input placeholder="Enter Full Name" />
           </Form.Item>
 
           <Form.Item 
@@ -231,23 +238,23 @@ export default function ManageUsers() {
             name="email" 
             rules={[...emailRules]}
           >
-            <Input />
+            <Input placeholder="Enter email"/>
           </Form.Item>
 
           <Form.Item label="Birthday" name="birthday" 
             rules={[...birthdayRules]}
           >
-            <Input type="date" />
+            <DatePicker format={dateFormat} />
           </Form.Item>
 
           <Form.Item label="Phone Number" name="phoneNo" 
             rules={[...phoneNoRules]}
           >
-            <Input />
+            <Input placeholder="Enter Phone Number"/>
           </Form.Item>
 
-          <Form.Item label="Position" name="positionName" rules={[]}>
-            <Select>
+          <Form.Item label="Position" name="positionName" rules={[...positionRules]}>
+            <Select placeholder="Select position">
               {positions.map((position) => (
                 <Select.Option key={position.pId} value={position.positionName}>
                   {position.positionName}
@@ -257,9 +264,9 @@ export default function ManageUsers() {
           </Form.Item>
 
           <Form.Item label="Password" name="password" 
-            rules={[...passwordRules,]}
+            rules={[...passwordRules]}
           >
-            <Input.Password />
+            <Input.Password placeholder="Enter Password"/>
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
