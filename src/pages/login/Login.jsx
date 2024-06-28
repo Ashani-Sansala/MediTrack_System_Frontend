@@ -5,9 +5,9 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import SecureLS from 'secure-ls';
 import axios from "axios";
-import clip from "./loginAssets/clip.mp4";
-import logo from "./loginAssets/logo.png";
-import encrypt from "../../utils/Encryption";
+import clip from "../../../../assets/clip.mp4";
+import logo from "../../../../assets/logo.png";
+import encrypt from "../../../../utils/Encryption";
 import "./Login.scss";
 
 const api_url = import.meta.env.VITE_API_URL;
@@ -34,7 +34,7 @@ export const Login = () => {
             const response = await axios.post(`${api_url}/login/authenticate`, {
                 username: encryptedUsername.value,
                 password: encryptedPassword.value,
-                unameIv: encryptedUsername.iv,
+                unameIv: encryptedUsername.iv, 
                 passIv: encryptedPassword.iv
             });
 
@@ -51,7 +51,7 @@ export const Login = () => {
         } catch (error) {
             const status = error.response?.status;
             let errorMessage = 'Something went wrong. Please try again!';
-
+        
             if (status === 400) {
                 errorMessage = 'Invalid request or missing required fields.';
             } else if (status === 401) {
@@ -59,7 +59,7 @@ export const Login = () => {
             } else if (status === 404) {
                 errorMessage = 'Invalid username!';
             }
-
+        
             setError(errorMessage);
         }
     };
@@ -96,11 +96,11 @@ export const Login = () => {
                             <label htmlFor="password">Password</label>
                             <div className="input flex">
                                 <BsFillShieldLockFill className="icon" />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    placeholder="Enter Password"
-                                    required
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    id="password" 
+                                    placeholder="Enter Password" 
+                                    required 
                                 />
                                 <div onClick={togglePasswordVisibility} className="password-toggle">
                                     {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

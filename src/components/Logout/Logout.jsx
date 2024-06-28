@@ -7,8 +7,8 @@ const useLogout = () => {
   const navigate = useNavigate();
 
   const logout = () => {
-    ls.remove('userName');
-    ls.remove('userID'); 
+    ls.remove('fullName');
+    ls.remove('username'); 
     ls.remove('pID');
     navigate('/'); // Redirect to the login page
   };
