@@ -31,43 +31,45 @@ const SearchBars = ({ onSearch }) => {
         endDate: null,
     });
 
+    // Fetch options useEffect
     useEffect(() => {
         // Fetch equipment options
-        fetch(`${api_url}/dashboard/equipment-options`)
+        fetch(`${api_url}/historicalRecords/equipment-options`)
             .then(response => response.json())
             .then(data => setEquipmentOptions(data))
             .catch(error => console.error('Error fetching equipment options:', error));
 
         // Fetch building options
-        fetch(`${api_url}/dashboard/building-options`)
+        fetch(`${api_url}/historicalRecords/building-options`)
             .then(response => response.json())
             .then(data => setBuildingOptions(data))
             .catch(error => console.error('Error fetching building options:', error));
 
         // Fetch all floor options initially
-        fetch(`${api_url}/dashboard/floor-options`)
+        fetch(`${api_url}/historicalRecords/floor-options`)
             .then(response => response.json())
             .then(data => setFloorOptions(data))
             .catch(error => console.error('Error fetching floor options:', error));
 
         // Fetch all area options initially
-        fetch(`${api_url}/dashboard/area-options`)
+        fetch(`${api_url}/historicalRecords/area-options`)
             .then(response => response.json())
             .then(data => setAreaOptions(data))
             .catch(error => console.error('Error fetching area options:', error));
     }, []);
 
+
     const handleBuildingChange = (value) => {
         setSelectedBuildings(value);
 
         // Fetch relevant floor options based on selected buildings
-        fetch(`${api_url}/dashboard/floor-options?buildings=${value.join(',')}`)
+        fetch(`${api_url}/historicalRecords/floor-options?buildings=${value.join(',')}`)
             .then(response => response.json())
             .then(data => setFloorOptions(data))
             .catch(error => console.error('Error fetching filtered floor options:', error));
 
         // Fetch relevant area options based on selected buildings
-        fetch(`${api_url}/dashboard/area-options?buildings=${value.join(',')}`)
+        fetch(`${api_url}/historicalRecords/area-options?buildings=${value.join(',')}`)
             .then(response => response.json())
             .then(data => setAreaOptions(data))
             .catch(error => console.error('Error fetching filtered area options:', error));
@@ -77,7 +79,7 @@ const SearchBars = ({ onSearch }) => {
         setSelectedFloors(value);
 
         // Fetch relevant area options based on selected buildings and floors
-        fetch(`${api_url}/dashboard/area-options?buildings=${selectedBuildings.join(',')}&floors=${value.join(',')}`)
+        fetch(`${api_url}/historicalRecords/area-options?buildings=${selectedBuildings.join(',')}&floors=${value.join(',')}`)
             .then(response => response.json())
             .then(data => setAreaOptions(data))
             .catch(error => console.error('Error fetching filtered area options:', error));
@@ -108,17 +110,17 @@ const SearchBars = ({ onSearch }) => {
         const endTime = searchTerms.endTime || defaultEndTime;
 
         const searchParams = new URLSearchParams({
-            eqpName: selectedEquipments.toString(),
-            buildingName: selectedBuildings.toString(),
-            floorNo: selectedFloors.toString(),
-            areaName: selectedAreas.toString(),
+            eqpName: selectedEquipments.join(','),
+            buildingName: selectedBuildings.join(','),
+            floorNo: selectedFloors.join(','),
+            areaName: selectedAreas.join(','),
             startTime: startTime,
             endTime: endTime,
             startDate: searchTerms.startDate,
             endDate: searchTerms.endDate,
         });
 
-        fetch(`${api_url}/dashboard/table?${searchParams.toString()}`, {
+        fetch(`${api_url}/historicalRecords/table?${searchParams.toString()}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -131,6 +133,7 @@ const SearchBars = ({ onSearch }) => {
             })
             .catch(error => console.error('Error:', error));
     };
+
 
     return (
         <div className="search-bars-container">

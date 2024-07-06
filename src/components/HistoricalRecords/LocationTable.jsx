@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Table } from 'antd';
 import SearchBars from './SearchBarRecord';
-import DownloadButton from './DownloadButton.jsx';
+import DownloadButton from './DownloadButton';
 import '../../styles/LocationTable.scss';
 import '../../styles/DownloadButton.scss';
 
@@ -70,8 +70,8 @@ const TableComponent = () => {
                     floor: row[3],
                     area: row[4],
                     date: formatDate(row[5]),
-                    time: formatTime(row[5]),
-                    accessFootage: row[6]
+                    time: formatTime(row[6]),
+                    accessFootage: row[7]
                 }));
                 setData(formattedData);
             })
@@ -87,27 +87,20 @@ const TableComponent = () => {
             floor: row[3],
             area: row[4],
             date: formatDate(row[5]),
-            time: formatTime(row[5]),
-            accessFootage: row[6]
+            time: formatTime(row[6]),
+            accessFootage: row[7]
         }));
         setData(formattedSearchResults);
     };
 
-    // Convert timestamp to date format
-    const formatDate = useMemo(() => {
-        return (timestamp) => {
-            const date = new Date(timestamp * 1000); // Convert seconds to milliseconds
-            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed, pad single digits with leading zero
-            const day = date.getDate().toString().padStart(2, '0'); // Pad single digits with leading zero
-            const year = date.getFullYear();
+    // Format date function
+    const formatDate = (dateString) => {
+        // Assuming dateString is in a format that can be parsed by Date constructor
+        const date = new Date(dateString);
+        return date.toLocaleDateString(); // Adjust format as needed
+    };
 
-            return `${month}/${day}/${year}`; // Format the date as MM/DD/YYYY
-        };
-    }, []);
-
-
-
-    // Convert time from seconds to time format
+    // Convert time drom seconds to time format
     const formatTime = useMemo(() => {
         return (seconds) => {
             const hours = Math.floor(seconds / 3600);
@@ -119,6 +112,7 @@ const TableComponent = () => {
             return `${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`;
         };
     }, []);
+
 
     return (
         <div>
