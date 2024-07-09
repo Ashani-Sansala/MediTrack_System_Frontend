@@ -1,12 +1,16 @@
 .button-container {
   display: flex;
-  text-align: right;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-top: 20px;
   margin-bottom: 20px;
 
   Button{
     height: 40px;
   }
+}
+h3{
+  padding-top: 10px;
+  padding-right: 50px;
 }
 
 .camera-status-disabled {
@@ -19,4 +23,13 @@
 
 .camera-status-under-maintenance {
   color: orange;
+}
+.add-camera-button{
+  margin-left: 20px;
+  background-color: #43B749;
+}
+
+.search-input{
+  height: 40px;
+  width: 800px;
 }

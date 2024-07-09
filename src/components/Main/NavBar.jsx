@@ -1,24 +1,25 @@
-import '../../styles/NavBar.scss';
-import NavBarButton from './NavBarButton';
-import { useLocation } from 'react-router-dom';
-import SecureLS from 'secure-ls';
-import { useEffect, useState } from 'react';
+import '../../styles/NavBar.scss'; 
+import NavBarButton from './NavBarButton'; 
+import { useLocation } from 'react-router-dom'; 
+import SecureLS from 'secure-ls'; 
+import { useEffect, useState } from 'react'; 
 
-const admin_userid = import.meta.env.VITE_ADMIN_USERID;
+const admin_cat = import.meta.env.VITE_ADMIN_CAT;
 
-const ls = new SecureLS({ encodingType: 'aes' });
-const pID = ls.get('pID'); 
+const ls = new SecureLS({ encodingType: 'aes' }); // Initializing SecureLS with AES encryption
+const category = ls.get('category'); // Retrieving 'category' from local storage
 
 const NavBar = () => {
-  const location = useLocation();
-  const [activeButton, setActiveButton] = useState(null);
+  const location = useLocation(); // Using useLocation to get the current path
+  const [activeButton, setActiveButton] = useState(null); // State to track the active button
 
   useEffect(() => {
-    setActiveButton(location.pathname);
+    setActiveButton(location.pathname); // Update active button state when location changes
   }, [location.pathname]);
 
   return (
     <div className="navBar">
+      {/* Render Dashboard button */}
       <div className="navButton">
         <NavBarButton
           to="/Dashboard"
@@ -28,6 +29,7 @@ const NavBar = () => {
           Dashboard
         </NavBarButton>
       </div>
+      {/* Render Video Feed button */}
       <div className="navButton">
         <NavBarButton
           to="/VideoFeed"
@@ -37,6 +39,7 @@ const NavBar = () => {
           Video Feed
         </NavBarButton>
       </div>
+      {/* Render Historical Records button */}
       <div className="navButton">
         <NavBarButton
           to="/HistoricalRecords"
@@ -46,8 +49,8 @@ const NavBar = () => {
           Historical Records
         </NavBarButton>
       </div>
-
-      {pID === admin_userid && (
+      {/* Render admin-specific buttons if the user is an admin */}
+      {category === admin_cat && (
         <>
           <div className="navButton">
             <NavBarButton
