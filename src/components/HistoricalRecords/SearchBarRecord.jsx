@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Select, TimePicker, DatePicker, Button } from 'antd';
+import { Select, TimePicker, Button, DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import '../../styles/SearchBars.scss';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -8,6 +8,8 @@ import { SearchOutlined } from '@ant-design/icons';
 dayjs.extend(customParseFormat);
 
 const api_url = import.meta.env.VITE_API_URL;
+
+const { RangePicker } = DatePicker;
 
 const SearchBars = ({ onSearch }) => {
     const [equipmentOptions, setEquipmentOptions] = useState([]);
@@ -25,13 +27,12 @@ const SearchBars = ({ onSearch }) => {
         buildingName: null,
         floorNo: null,
         areaName: null,
-        startTime: null,
-        endTime: null,
         startDate: null,
         endDate: null,
+        startTime: null,
+        endTime: null,
     });
 
-    // Fetch options useEffect
     useEffect(() => {
         // Fetch equipment options
         fetch(`${api_url}/historicalRecords/equipment-options`)
@@ -57,7 +58,6 @@ const SearchBars = ({ onSearch }) => {
             .then(data => setAreaOptions(data))
             .catch(error => console.error('Error fetching area options:', error));
     }, []);
-
 
     const handleBuildingChange = (value) => {
         setSelectedBuildings(value);
@@ -89,6 +89,13 @@ const SearchBars = ({ onSearch }) => {
         setSearchTerms(prevTerms => ({ ...prevTerms, [key]: value }));
     };
 
+    const handleDateRangeChange = (dates) => {
+        const startDate = dates && dates[0] ? dates[0].format('YYYY-MM-DD') : null;
+        const endDate = dates && dates[1] ? dates[1].format('YYYY-MM-DD') : null;
+        handleSearchChange('startDate', startDate);
+        handleSearchChange('endDate', endDate);
+    };
+
     const handleTimeRangeChange = (times) => {
         const startTime = times && times[0] ? times[0].format('HH:mm:ss') : null;
         const endTime = times && times[1] ? times[1].format('HH:mm:ss') : null;
@@ -96,12 +103,6 @@ const SearchBars = ({ onSearch }) => {
         handleSearchChange('endTime', endTime);
     };
 
-    const handleDateRangeChange = (dates) => {
-        const startDate = dates && dates[0] ? dates[0].valueOf() : null; // Convert to timestamp
-        const endDate = dates && dates[1] ? dates[1].valueOf() : null; // Convert to timestamp
-        handleSearchChange('startDate', startDate);
-        handleSearchChange('endDate', endDate);
-    };
     const handleSearch = () => {
         const defaultStartTime = '00:00:00';
         const defaultEndTime = '23:59:59';
@@ -110,14 +111,14 @@ const SearchBars = ({ onSearch }) => {
         const endTime = searchTerms.endTime || defaultEndTime;
 
         const searchParams = new URLSearchParams({
-            eqpName: selectedEquipments.join(','),
-            buildingName: selectedBuildings.join(','),
-            floorNo: selectedFloors.join(','),
-            areaName: selectedAreas.join(','),
+            eqpName: selectedEquipments.toString(),
+            buildingName: selectedBuildings.toString(),
+            floorNo: selectedFloors.toString(),
+            areaName: selectedAreas.toString(),
+            startDate: searchTerms.startDate || '',
+            endDate: searchTerms.endDate || '',
             startTime: startTime,
             endTime: endTime,
-            startDate: searchTerms.startDate,
-            endDate: searchTerms.endDate,
         });
 
         fetch(`${api_url}/historicalRecords/table?${searchParams.toString()}`, {
@@ -133,7 +134,6 @@ const SearchBars = ({ onSearch }) => {
             })
             .catch(error => console.error('Error:', error));
     };
-
 
     return (
         <div className="search-bars-container">
@@ -193,18 +193,18 @@ const SearchBars = ({ onSearch }) => {
                 }))}
             />
 
-            <TimePicker.RangePicker
-                placeholder={['Start Time', 'End Time']}
-                onChange={handleTimeRangeChange}
-                value={searchTerms.startTime && searchTerms.endTime ? [dayjs(searchTerms.startTime, 'HH:mm:ss'), dayjs(searchTerms.endTime, 'HH:mm:ss')] : []}
-                defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
+            <RangePicker
+                placeholder={['Start Date', 'End Date']}
+                onChange={handleDateRangeChange}
+                value={searchTerms.startDate && searchTerms.endDate ? [dayjs(searchTerms.startDate, 'YYYY-MM-DD'), dayjs(searchTerms.endDate, 'YYYY-MM-DD')] : []}
                 style={{ width: '100%' }}
             />
 
-            <DatePicker.RangePicker
-                placeholder={['Start Date', 'End Date']}
-                onChange={handleDateRangeChange}
-                value={searchTerms.startDate && searchTerms.endDate ? [dayjs(searchTerms.startDate), dayjs(searchTerms.endDate)] : []}
+            <TimePicker.RangePicker
+                placeholder={['Start', 'End']}
+                onChange={handleTimeRangeChange}
+                value={searchTerms.startTime && searchTerms.endTime ? [dayjs(searchTerms.startTime, 'HH:mm:ss'), dayjs(searchTerms.endTime, 'HH:mm:ss')] : []}
+                defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
                 style={{ width: '100%' }}
             />
 
