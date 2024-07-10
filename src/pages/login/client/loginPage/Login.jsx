@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
@@ -6,27 +6,43 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import SecureLS from 'secure-ls';
 import axios from "axios";
 import clip from "../../../../assets/clip.mp4";
-import logo from "../../../../assets/logo.png";
-import encrypt from "../../../../utils/Encryption";
+import logo from "../../../../assets/logo.png"; 
+import encrypt from "../../../../utils/Encryption"; 
 import "./Login.scss";
 
-const api_url = import.meta.env.VITE_API_URL;
+const api_url = import.meta.env.VITE_API_URL; // API base URL from environment variables
 
-const ls = new SecureLS({ encodingType: 'aes' });
+const ls = new SecureLS({ encodingType: 'aes' }); // Initializing SecureLS for secure local storage
 
 export const Login = () => {
-    const [error, setError] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState(""); // State for handling error messages
+    const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
 
+    useEffect(() => {
+        // Check if user is already logged in
+        const username = ls.get('username');
+        const fullName = ls.get('fullName');
+        const category = ls.get('category');
+        const avatarUrl = ls.get('avatarUrl');
+
+        if (username && fullName && category && avatarUrl) {
+            // User is already logged in, redirect to Dashboard
+            window.location.href = "/Dashboard";
+        } 
+    }, []);
+
+    // Function to toggle the visibility of the password field
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    // Function to handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         const username = event.target.elements.username.value;
         const password = event.target.elements.password.value;
 
+        // Encrypting username and password before sending to the server
         const encryptedUsername = encrypt(username);
         const encryptedPassword = encrypt(password);
 
@@ -41,17 +57,24 @@ export const Login = () => {
             const data = response.data;
 
             if (data.success) {
+                ls.remove('username');
+                ls.remove('fullName');
+                ls.remove('category');
+                ls.remove('avatarUrl');
+                // Storing user details securely in local storage
                 ls.set('username', data.username);
                 ls.set('fullName', data.fullName);
-                ls.set('pID', data.pID);
-                window.location.href = "/Dashboard";
+                ls.set('category', data.category);
+                ls.set('avatarUrl', data.avatarUrl);
+                window.location.href = "/Dashboard"; // Redirecting to the dashboard on successful login
             } else {
-                setError(data.message);
+                setError(data.message); // Displaying error message from server response
             }
         } catch (error) {
             const status = error.response?.status;
             let errorMessage = 'Something went wrong. Please try again!';
-        
+
+            // Handling different error status codes
             if (status === 400) {
                 errorMessage = 'Invalid request or missing required fields.';
             } else if (status === 401) {
@@ -59,14 +82,15 @@ export const Login = () => {
             } else if (status === 404) {
                 errorMessage = 'Invalid username!';
             }
-        
-            setError(errorMessage);
+
+            setError(errorMessage); // Displaying the appropriate error message
         }
     };
 
     return (
         <div className="loginPage flex">
             <div className="container flex">
+                {/* Video and text section */}
                 <div className="videoDiv">
                     <video src={clip} autoPlay muted loop></video>
                     <div className="textDiv">
@@ -79,12 +103,14 @@ export const Login = () => {
                         <span className="text">Start tracking hospital assets!</span>
                     </div>
                 </div>
+                
+                {/* Form section */}
                 <div className="formDiv flex">
                     <div className="headerDiv">
                         <img src={logo} alt="Logo Image" />
                         <h3>Welcome back!</h3>
                     </div>
-                    <form action="" className="form grid" onSubmit={handleSubmit}>
+                    <form className="form grid" onSubmit={handleSubmit}>
                         <div className="inputDiv">
                             <label htmlFor="username">Username</label>
                             <div className="input flex">

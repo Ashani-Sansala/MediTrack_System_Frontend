@@ -2,30 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, Select, message, DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import axios from 'axios';
-import {locationRules, ipAddressRules, modelRules, 
-        installationDateRules, cameraStatusRules} from '../../utils/ValidationRules';
+import { locationRules, ipAddressRules, modelRules, 
+        installationDateRules, cameraStatusRules, disableFutureDates } from '../../utils/ValidationRules';
 import './ManageCamera.scss'
 
 const { Option } = Select;
-const api_url = import.meta.env.VITE_API_URL;
+const api_url = import.meta.env.VITE_API_URL; // API base URL from environment variables
 
-const dateFormat = 'YYYY-MM-DD';
+const dateFormat = 'YYYY-MM-DD'; // Standard date format
 
 const CameraTable = () => {
-  const [cameras, setCameras] = useState([]);
-  const [cameraCount, setCameraCount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [locations, setLocations] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [form] = Form.useForm();
-  const [editForm] = Form.useForm();
-  const [editingKey, setEditingKey] = useState('');
+  const [cameras, setCameras] = useState([]); // State for camera data
+  const [cameraCount, setCameraCount] = useState(0); // State for the count of cameras
+  const [searchTerm, setSearchTerm] = useState(''); // State for search input
+  const [locations, setLocations] = useState([]); // State for location data
+  const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
+  const [form] = Form.useForm(); // Form instance for adding camera
+  const [editForm] = Form.useForm(); // Form instance for editing camera
+  const [editingKey, setEditingKey] = useState(''); // State for the currently editing camera key
 
+  // Fetch cameras and locations when component mounts or searchTerm changes
   useEffect(() => {
     fetchCameras();
     fetchLocations();
   }, [searchTerm]); 
 
+  // Fetch cameras from the server
   const fetchCameras = async () => {
     try {
       const response = await axios.get(`${api_url}/manageCamera/getData`, {
@@ -43,11 +45,13 @@ const CameraTable = () => {
     }
   };
 
+  // Fetch locations from the server
   const fetchLocations = async () => {
     const response = await axios.get(`${api_url}/manageCamera/locationData`);
     setLocations(response.data);
   };
 
+  // Handle adding a new camera
   const handleAdd = async (values) => {
     try {
       const formattedValues = {
@@ -69,21 +73,26 @@ const CameraTable = () => {
     }
   };
 
+  // Handle search action
   const handleSearch = () => {
     fetchCameras();
   };
 
+  // Check if a record is being edited
   const isEditing = (record) => record.cameraId === editingKey;
 
+  // Start editing a camera record
   const edit = (record) => {
     editForm.setFieldsValue({ ...record });
     setEditingKey(record.cameraId);
   };
 
+  // Cancel editing
   const cancel = () => {
     setEditingKey('');
   };
 
+  // Save changes to a camera record
   const save = async (cameraId) => {
     try {
       const row = await editForm.validateFields();
@@ -101,6 +110,7 @@ const CameraTable = () => {
     }
   };
 
+  // Table columns definition
   const columns = [
     { title: 'Camera ID', dataIndex: 'cameraId', key: 'cameraId' },
     {
@@ -166,6 +176,7 @@ const CameraTable = () => {
     },
   ];
 
+  // Integrate editable cells in table columns
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -183,6 +194,7 @@ const CameraTable = () => {
     };
   });
 
+  // Editable cell component
   const EditableCell = ({
     editing,
     dataIndex,
@@ -223,7 +235,7 @@ const CameraTable = () => {
     <div>
       <h1>Manage Camera</h1>
       <div className="button-container">
-        <h3>Camera count: {cameraCount}</h3>
+        <h3>Cameras: {cameraCount}</h3>
         <Input
           type="text"
           className="search-input"
@@ -234,7 +246,7 @@ const CameraTable = () => {
         <Button type="primary" onClick={handleSearch}>
           Search
         </Button>
-        <Button type="primary" onClick={() => setIsModalVisible(true)}>Add Camera</Button>
+        <Button className='add-camera-button' type="primary" onClick={() => setIsModalVisible(true)}>Add Camera</Button>
       </div>
       <Form form={editForm} component={false}>
         <Table
@@ -276,7 +288,10 @@ const CameraTable = () => {
           </Form.Item>
 
           <Form.Item name="installationDate" label="Installation Date" rules={[...installationDateRules]}>
-            <DatePicker format={dateFormat} />
+            <DatePicker 
+              format={dateFormat} 
+              disabledDate={disableFutureDates} 
+            />
           </Form.Item>
 
           <Form.Item name="cameraStatus" label="Status" rules={[...cameraStatusRules]}>

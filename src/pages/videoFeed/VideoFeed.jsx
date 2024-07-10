@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './VideoFeed.scss';
 
+const api_url = import.meta.env.VITE_API_URL;
+
 export default function VideoFeed() {
   const [selectedCameras, setSelectedCameras] = useState({
     floor1: [],
@@ -15,7 +17,7 @@ export default function VideoFeed() {
   useEffect(() => {
     const fetchVideoMapping = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/videos');
+        const response = await axios.get(`${api_url}/videoFeed/videos`);
         setVideoMapping(response.data);
       } catch (error) {
         console.error('Error fetching video mapping:', error);
@@ -75,7 +77,7 @@ export default function VideoFeed() {
             <li key={floor}>
               <h4>
                 <input
-                  type="checkbox"
+                  type="radio"
                   id={floor}
                   name={floor}
                   onChange={() => handleFloorCheckboxChange(floor)}

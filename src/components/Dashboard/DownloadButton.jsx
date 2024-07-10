@@ -1,28 +1,34 @@
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import '../../styles/DownloadButton.scss';
+import jsPDF from 'jspdf'; 
+import 'jspdf-autotable'; 
+import '../../styles/DownloadButton.scss'; 
 
+// DownloadButton takes 'data' as a prop
 const DownloadButton = ({ data }) => {
+  // Function to generate and download the PDF
   const downloadPdf = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF(); // Create a new PDF document
+
+    // Adding a table to the PDF
     doc.autoTable({
-      head: [['Move No', 'Equipment', 'Building', 'Floor', 'Area', 'Time', 'Access Footage']],
-      body: data.map(row => [
-        row.moveNo,
-        row.equipment,
-        row.building,
-        row.floor,
-        row.area,
-        row.time,
-        row.accessFootage
+      head: [['Move No', 'Equipment', 'Building', 'Floor', 'Area', 'Direction', 'Time', 'Access Frame']], // Table headers
+      body: data.map(row => [ // Mapping over the data to create rows for the table
+        row.moveNo,        // Move number
+        row.equipment,     // Equipment name/type
+        row.building,      // Building name/number
+        row.floor,         // Floor number
+        row.area,          // Area description
+        row.direction,     // Direction
+        row.time,          // Time of the move
+        row.accessFrame  // Access frame info
       ]),
     });
-    doc.save('table.pdf');
+    doc.save('table.pdf'); // Saving the PDF with the filename 'table.pdf'
   };
 
+  // Rendering the button with an onClick handler to download the PDF when clicked
   return (
     <button className="download-button" onClick={downloadPdf}>Download PDF</button>
   );
 };
 
-export default DownloadButton;
+export default DownloadButton; 

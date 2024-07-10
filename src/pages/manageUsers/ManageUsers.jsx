@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker } from 'antd';
 import { usernameRules, nameRules, emailRules, 
          passwordRules, birthdayRules, phoneNoRules, 
-         positionRules} from '../../utils/ValidationRules';
+         positionRules, disableFutureDates} from '../../utils/ValidationRules';
 import encrypt from '../../utils/Encryption'; 
 import './ManageUsers.scss'
 
@@ -149,7 +149,6 @@ export default function ManageUsers() {
       title: 'Birthday',
       dataIndex: 'birthday',
       key: 'birthday',
-      // render: (text) => new Date(text).toISOString().split('T')[0],
       render: (text) => dayjs(text).format(dateFormat)
     },
     {
@@ -207,9 +206,7 @@ export default function ManageUsers() {
           
         </div>
       </div>
-      <div className="user-count">
-        <p>Total Users: {userCount}</p>
-      </div>
+      
       <div className="users-table-container">
         <Table dataSource={users} columns={columns} rowKey="username" />
       </div>
@@ -248,7 +245,10 @@ export default function ManageUsers() {
           <Form.Item label="Birthday" name="birthday" 
             rules={[...birthdayRules]}
           >
-            <DatePicker format={dateFormat} />
+            <DatePicker 
+              format={dateFormat} 
+              disabledDate={disableFutureDates} // Disabling future dates
+            />
           </Form.Item>
 
           <Form.Item label="Phone Number" name="phoneNo" 
