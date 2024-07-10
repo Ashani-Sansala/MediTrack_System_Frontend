@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'; 
+
 export const usernameRules = [
     { required: true, message: 'Please enter the username' },
     { 
@@ -49,6 +51,10 @@ export const validateDifferentFromCurrentPassword = ({ getFieldValue }) => ({
     }
 });
 
+// Function to disable future dates in DatePicker
+export const disableFutureDates = (current) => {
+    return current && current > dayjs().endOf('day');
+};
 
 export const locationRules = [
     { required: true, message: 'Please select location' }

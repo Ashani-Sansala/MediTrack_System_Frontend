@@ -25,6 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
+    "react-image-file-resizer": "^0.4.8",
     "react-router-dom": "^6.23.1",
     "react-table": "^7.8.0",
     "secure-ls": "^1.2.6",

@@ -15,22 +15,18 @@
   }
 }
 
-.search-bars-container input[type="text"],
-.search-bars-container .search-bars,
-.search-bars-container .ant-select-selector,
-.search-bars-container .ant-input-affix-wrapper {
-  display: flex;
-  flex-grow: 1;
-  align-items: center; 
-  padding: 0;
-  border-radius: 4px;
-  text-align: left;
-  //color: black;
-  //padding-left: 2px;
-}
-
 .search-bars-container > :last-child {
   margin-right: 0;
+}
+
+.refresh-button{
+  background-color: black;
+  height: 40px; 
+}
+
+.clear-button{
+  background-color: black;
+  height: 40px; 
 }
 
 .search-button{
@@ -38,34 +34,11 @@
   height: 40px; 
 }
 
-
 .search-button:hover {
   background-color: #0056b3;
 }
 
-/*New focus styles for all search inputs*/
-.search-bars-container .search-bars:focus,
-.search-bars-container input[type="text"]:focus,
-.search-bars-container .ant-select-focused .ant-select-selector,
-.search-bars-container .ant-input-affix-wrapper:focus {
-  outline: none;
-  border-color: #007bff; 
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
-}
 
-/*Ensure the Select component has the same focus style*/
-.ant-select-focused .ant-select-selector,
-.ant-select-selector:focus {
-  outline: none;
-  border-color: #007bff; 
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
-}
 
-/*Adjust the placeholder text for all input and select elements*/
-.search-bars-container input::placeholder,
-.search-bars-container .ant-select-selection-placeholder {
-    color: #ccc;
-    padding-left: 10px;
-}
 
 

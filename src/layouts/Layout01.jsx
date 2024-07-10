@@ -15,9 +15,6 @@ export default function Layout01() {
             <div className="Cont">
                 <Outlet/>
             </div>
-            <div className="BottomCont">
-                <PageBottom/>
-            </div>
         </div>
     );
 }
