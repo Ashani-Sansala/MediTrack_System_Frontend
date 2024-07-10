@@ -34,6 +34,11 @@ const columns = [
         key: 'area',
     },
     {
+        title: 'Direction',
+        dataIndex: 'direction',
+        key: 'direction',
+    },
+    {
         title: 'Date',
         dataIndex: 'date',
         key: 'date',
@@ -44,10 +49,10 @@ const columns = [
         key: 'time',
     },
     {
-        title: 'Access Footage',
-        dataIndex: 'accessFootage',
-        key: 'accessFootage',
-        render: (text) => <a href={text} target="_blank" rel="noopener noreferrer">Access Footage Here</a>,
+        title: 'Access Frame',
+        dataIndex: 'accessFrame',
+        key: 'accessFrame',
+        render: (text) => <a href={text} target="_blank" rel="noopener noreferrer">Access Frame Here</a>, // Render function for rendering access footage as a link
     },
 ];
 
@@ -69,9 +74,10 @@ const TableComponent = () => {
                     building: row[2],
                     floor: row[3],
                     area: row[4],
-                    date: formatDate(row[5]),
-                    time: formatTime(row[6]),
-                    accessFootage: row[7]
+                    direction: row[5],
+                    date: formatDate(row[6]),
+                    time: formatTime(row[7]),
+                    accessFrame: row[8]
                 }));
                 setData(formattedData);
             })
@@ -86,9 +92,10 @@ const TableComponent = () => {
             building: row[2],
             floor: row[3],
             area: row[4],
-            date: formatDate(row[5]),
-            time: formatTime(row[6]),
-            accessFootage: row[7]
+            direction: row[5],
+            date: formatDate(row[6]),
+            time: formatTime(row[7]),
+            accessFrame: row[8]
         }));
         setData(formattedSearchResults);
     };

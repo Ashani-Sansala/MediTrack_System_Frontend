@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Select, TimePicker, Button, DatePicker } from 'antd';
+import {Select, TimePicker, Button, DatePicker, Tooltip} from 'antd';
 import dayjs from 'dayjs';
 import '../../styles/SearchBars.scss';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { SearchOutlined } from '@ant-design/icons';
+import {ClearOutlined, SearchOutlined} from '@ant-design/icons';
 dayjs.extend(customParseFormat);
 
 const api_url = import.meta.env.VITE_API_URL;
@@ -32,6 +32,8 @@ const SearchBars = ({ onSearch }) => {
         startTime: null,
         endTime: null,
     });
+
+    const [timeRange, setTimeRange] = useState(null);
 
     useEffect(() => {
         // Fetch equipment options
@@ -101,6 +103,7 @@ const SearchBars = ({ onSearch }) => {
         const endTime = times && times[1] ? times[1].format('HH:mm:ss') : null;
         handleSearchChange('startTime', startTime);
         handleSearchChange('endTime', endTime);
+        setTimeRange(times);
     };
 
     const handleSearch = () => {
@@ -133,6 +136,24 @@ const SearchBars = ({ onSearch }) => {
                 onSearch(data);
             })
             .catch(error => console.error('Error:', error));
+    };
+
+    const handleClear = () => {
+        setSelectedEquipments([]);
+        setSelectedBuildings([]);
+        setSelectedFloors([]);
+        setSelectedAreas([]);
+        setTimeRange(null);
+        setSearchTerms({
+            eqpName: null,
+            buildingName: null,
+            floorNo: null,
+            areaName: null,
+            startDate: null,
+            endDate: null,
+            startTime: null,
+            endTime: null,
+        });
     };
 
     return (
@@ -200,10 +221,11 @@ const SearchBars = ({ onSearch }) => {
                 style={{ width: '100%' }}
             />
 
+            {/* Time range picker for selecting start and end time */}
             <TimePicker.RangePicker
                 placeholder={['Start', 'End']}
                 onChange={handleTimeRangeChange}
-                value={searchTerms.startTime && searchTerms.endTime ? [dayjs(searchTerms.startTime, 'HH:mm:ss'), dayjs(searchTerms.endTime, 'HH:mm:ss')] : []}
+                value={timeRange}
                 defaultOpenValue={dayjs('00:00:00', 'HH:mm:ss')}
                 style={{ width: '100%' }}
             />
@@ -211,6 +233,17 @@ const SearchBars = ({ onSearch }) => {
             <Button type="primary" className='search-button' onClick={handleSearch} icon={<SearchOutlined />}>
                 Search
             </Button>
+
+            {/* Button to clear all selections */}
+            <Tooltip title="Clear">
+                <Button
+                    type="primary"
+                    className='clear-button'
+                    onClick={handleClear}
+                    icon={<ClearOutlined />}
+                    style={{ width: '40px', padding:'10px' }}
+                />
+            </Tooltip>
         </div>
     );
 };
