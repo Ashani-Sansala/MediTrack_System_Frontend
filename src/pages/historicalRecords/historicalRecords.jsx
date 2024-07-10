@@ -1,4 +1,4 @@
-import LocationTable from '../../components/Dashboard/LocationTable';
+import LocationTable from '../../components/HistoricalRecords/LocationTable.jsx';
 
 const HistoricalRecords = () => {
 
