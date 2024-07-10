@@ -5,8 +5,8 @@ import { AiOutlineSwapRight } from "react-icons/ai";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import SecureLS from 'secure-ls';
 import axios from "axios";
-import clip from "./loginAssets/clip.mp4";
-import logo from "./loginAssets/logo.png";
+import clip from "../../assets/clip.mp4";
+import logo from "../../assets/logo.png";
 import encrypt from "../../utils/Encryption";
 import "./Login.scss";
 
