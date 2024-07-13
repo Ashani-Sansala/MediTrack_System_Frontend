@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Table } from 'antd';
-import SearchBars from './SearchRecords';
+import SearchBars from './SearchBarRecord';
 import DownloadButton from './DownloadButton';
 import '../../styles/LocationTable.scss';
 import '../../styles/DownloadButton.scss';
