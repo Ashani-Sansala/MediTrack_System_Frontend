@@ -10,7 +10,7 @@ const DownloadButton = ({ data }) => {
 
     // Adding a table to the PDF
     doc.autoTable({
-      head: [['Move No', 'Equipment', 'Building', 'Floor', 'Area', 'Direction', 'Time', 'Access Frame']], // Table headers
+      head: [['Move No', 'Equipment', 'Building', 'Floor', 'Area', 'Direction', 'Time']], // Table headers
       body: data.map(row => [ // Mapping over the data to create rows for the table
         row.moveNo,        // Move number
         row.equipment,     // Equipment name/type
@@ -19,10 +19,9 @@ const DownloadButton = ({ data }) => {
         row.area,          // Area description
         row.direction,     // Direction
         row.time,          // Time of the move
-        row.accessFrame  // Access frame info
       ]),
     });
-    doc.save('table.pdf'); // Saving the PDF with the filename 'table.pdf'
+    doc.save('detectionLogs.pdf'); // Saving the PDF with the filename 'detectionLogs.pdf'
   };
 
   // Rendering the button with an onClick handler to download the PDF when clicked

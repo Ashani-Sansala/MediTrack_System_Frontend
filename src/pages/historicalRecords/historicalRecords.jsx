@@ -1,9 +1,10 @@
-import LocationTable from '../../components/Dashboard/LocationTable';
+import LocationTable from '../../components/HistoricalRecords/LocationTable';
 
 const HistoricalRecords = () => {
 
     return (
         <div>
+            <h1>Historical Records</h1>
             <LocationTable/>
         </div>
     );

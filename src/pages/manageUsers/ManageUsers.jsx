@@ -1,96 +1,102 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import dayjs from 'dayjs';
-import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker } from 'antd';
-import { usernameRules, nameRules, emailRules, 
-         passwordRules, birthdayRules, phoneNoRules, 
-         positionRules, disableFutureDates} from '../../utils/ValidationRules';
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios'; 
+import dayjs from 'dayjs'; 
+import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker } from 'antd'; 
+import { 
+  usernameRules, nameRules, emailRules, passwordRules, birthdayRules, phoneNoRules, positionRules, disableFutureDates 
+} from '../../utils/ValidationRules'; 
 import encrypt from '../../utils/Encryption'; 
-import './ManageUsers.scss'
+import './ManageUsers.scss'; 
 
-const api_url = import.meta.env.VITE_API_URL;
-const admin_userid = import.meta.env.VITE_ADMIN_USERID;
+const api_url = import.meta.env.VITE_API_URL; // Fetching API URL from environment variables
+const admin_userid = import.meta.env.VITE_ADMIN_USERID; // Fetching admin user ID from environment variables
 
-const dateFormat = 'YYYY-MM-DD';
-
+const dateFormat = 'YYYY-MM-DD'; // Date format for date pickers
 
 export default function ManageUsers() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [users, setUsers] = useState([]);
-  const [userCount, setUserCount] = useState(0);
-  const [showAddUserModal, setShowAddUserModal] = useState(false);
-  const [positions, setPositions] = useState([]);
-  const [form] = Form.useForm();
+  const [searchTerm, setSearchTerm] = useState(''); // State for search term input
+  const [users, setUsers] = useState([]); // State for users data
+  const [userCount, setUserCount] = useState(0); // State for total user count
+  const [showAddUserModal, setShowAddUserModal] = useState(false); // State to control visibility of add user modal
+  const [positions, setPositions] = useState([]); // State for positions data
+  const [form] = Form.useForm(); // Form instance for user input form
 
+  // Function to fetch users data based on search term
   const fetchUsers = async () => {
     try {
       const response = await axios.get(`${api_url}/manageUsers/getData`, {
-        params: { search: searchTerm },
-        birthday: dayjs(users.birthday).format(dateFormat)
+        params: { search: searchTerm }, // Passing search term as query parameter
+        birthday: dayjs(users.birthday).format(dateFormat) // Formatting birthday date
       });
-      setUsers(response.data);
-      setUserCount(response.data.length);
+      setUsers(response.data); // Updating users state with fetched data
+      setUserCount(response.data.length); // Setting total user count
     } catch (error) {
       console.error('Error fetching users:', error);
-      message.error('Error fetching users!');
+      message.error('Error fetching users!'); // Showing error message
     }
   };
 
+  // Function to fetch positions data
   const fetchPositions = async () => {
     try {
-      const response = await axios.get(`${api_url}/manageUsers/positionData`);
-      setPositions(response.data);
+      const response = await axios.get(`${api_url}/manageUsers/positionData`); // Fetching positions data
+      setPositions(response.data); // Updating positions state with fetched data
     } catch (error) {
       console.error('Error fetching positions:', error);
-      message.error('Error fetching positions!');
+      message.error('Error fetching positions!'); // Showing error message
     }
   };
 
   useEffect(() => {
-    fetchUsers();
-    fetchPositions();
+    fetchUsers(); // Fetch users data on component mount and when search term changes
+    fetchPositions(); // Fetch positions data on component mount
   }, [searchTerm]);
 
+  // Function to handle search based on search term
   const handleSearch = () => {
-    fetchUsers();
+    fetchUsers(); // Fetch users data on search button click
   };
 
+  // Function to check if username is available
   const checkUsernameAvailability = async (username) => {
     try {
       const response = await axios.get(`${api_url}/manageUsers/checkUsername`, {
-        params: { username },
+        params: { username }, // Passing username as query parameter
       });
-      return response.data.available;
+      return response.data.available; // Returning availability status
     } catch (error) {
       console.error('Error checking username availability:', error);
-      message.error('Error checking username availability!');
+      message.error('Error checking username availability!'); // Showing error message
       return false;
     }
   };
 
+  // Function to remove user
   const removeUser = async (username) => {
     try {
-      const response = await axios.delete(`${api_url}/manageUsers/remove/${username}`);
+      const response = await axios.delete(`${api_url}/manageUsers/remove/${username}`); // Deleting user by username
       if (response.status === 200) {
-        fetchUsers();
-        message.success('User removed successfully');
+        fetchUsers(); // Refreshing users data after deletion
+        message.success('User removed successfully'); // Showing success message
       } else {
-        message.error('Error removing user');
+        message.error('Error removing user'); // Showing error message
       }
     } catch (error) {
       console.error('Error removing user:', error);
-      message.error('Error removing user!');
+      message.error('Error removing user!'); // Showing error message
     }
   };
 
+  // Function to handle adding new user
   const handleAddUser = async (values) => {
-    const isUsernameAvailable = await checkUsernameAvailability(values.username);
+    const isUsernameAvailable = await checkUsernameAvailability(values.username); // Checking username availability
     if (!isUsernameAvailable) {
-      message.error('Username is already taken!');
+      message.error('Username is already taken!'); // Showing error message if username is not available
       return;
     }
 
+    // Encrypting sensitive data before sending
     const encryptedPassword = encrypt(values.password);
     const encryptedEmail = encrypt(values.email);
     const encryptedPhoneNo = encrypt(values.phoneNo);
@@ -108,27 +114,29 @@ export default function ManageUsers() {
     try {
       const response = await axios.post(`${api_url}/manageUsers/add`, {
         ...encryptedData,
-        pId: positions.find((pos) => pos.positionName === values.positionName).pId,
-        birthday: values.birthday.format(dateFormat), // Format the date here
+        pId: positions.find((pos) => pos.positionName === values.positionName).pId, // Finding position ID based on position name
+        birthday: values.birthday.format(dateFormat), // Formatting birthday date
       });
       if (response.status === 201) {
-        fetchUsers();
-        setShowAddUserModal(false);
-        message.success('User added successfully');
+        fetchUsers(); // Refreshing users data after addition
+        setShowAddUserModal(false); // Closing add user modal
+        message.success('User added successfully'); // Showing success message
       } else {
-        message.error('Error adding user!');
+        message.error('Error adding user!'); // Showing error message
       }
     } catch (error) {
       console.error('Error adding user:', error);
-      message.error('Error adding user!');
+      message.error('Error adding user!'); // Showing error message
     }
   };
 
+  // Function to open add user modal
   const openAddUserModal = () => {
-    form.resetFields();
-    setShowAddUserModal(true);
+    form.resetFields(); // Resetting form fields
+    setShowAddUserModal(true); // Setting state to show add user modal
   };
 
+  // Table columns configuration
   const columns = [
     {
       title: 'Username',
@@ -149,7 +157,7 @@ export default function ManageUsers() {
       title: 'Birthday',
       dataIndex: 'birthday',
       key: 'birthday',
-      render: (text) => dayjs(text).format(dateFormat)
+      render: (text) => dayjs(text).format(dateFormat) // Formatting birthday date
     },
     {
       title: 'Phone Number',
@@ -165,7 +173,7 @@ export default function ManageUsers() {
       title: 'Role',
       dataIndex: 'pId',
       key: 'role',
-      render: (text) => (text === admin_userid ? 'Admin' : 'Hospital Staff'),
+      render: (text) => (text === admin_userid ? 'Admin' : 'Hospital Staff'), // Displaying user role based on admin user ID
     },
     {
       title: 'Action',
@@ -188,40 +196,40 @@ export default function ManageUsers() {
       <h1>Manage Users</h1>
       <div className="manage-users-header">
         <div className="search-container">
-          <h3>Users: {userCount}</h3>
+          <h3>Users: {userCount}</h3> {/* Displaying total user count */}
           <Input
             type="text"
             className="search-input"
-            placeholder="Search..."
+            placeholder="Search..." // Placeholder text for search input
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            
+            onChange={(e) => setSearchTerm(e.target.value)} // Handling search term change
           />
           <Button type="primary" onClick={handleSearch}>
-            Search
+            Search {/* Search button */}
           </Button>
           <Button id='add-user' type="primary" onClick={openAddUserModal}>
-            Add New User
+            Add New User {/* Button to add new user */}
           </Button>
-          
         </div>
       </div>
-      
+
       <div className="users-table-container">
-        <Table dataSource={users} columns={columns} rowKey="username" />
+        <Table dataSource={users} columns={columns} rowKey="username" /> {/* Rendering users table */}
       </div>
 
+      {/* Modal for adding new user */}
       <Modal
         title="Add New User"
         visible={showAddUserModal}
         onCancel={() => setShowAddUserModal(false)}
         footer={null}
       >
+        {/* User input form */}
         <Form layout="vertical" onFinish={handleAddUser} form={form}>
           <Form.Item
             label="Username"
             name="username"
-            rules={[...usernameRules]}
+            rules={[...usernameRules]} // Validation rules for username input
           >
             <Input placeholder="Enter Username" />
           </Form.Item>
@@ -229,7 +237,7 @@ export default function ManageUsers() {
           <Form.Item 
             label="Full Name" 
             name="fullName" 
-            rules={[...nameRules]}
+            rules={[...nameRules]} // Validation rules for full name input
           >
             <Input placeholder="Enter Full Name" />
           </Form.Item>
@@ -237,22 +245,22 @@ export default function ManageUsers() {
           <Form.Item 
             label="Email" 
             name="email" 
-            rules={[...emailRules]}
+            rules={[...emailRules]} // Validation rules for email input
           >
             <Input placeholder="Enter email"/>
           </Form.Item>
 
           <Form.Item label="Birthday" name="birthday" 
-            rules={[...birthdayRules]}
+            rules={[...birthdayRules]} // Validation rules for birthday input
           >
             <DatePicker 
               format={dateFormat} 
-              disabledDate={disableFutureDates} // Disabling future dates
+              disabledDate={disableFutureDates} // Disabling future dates in date picker
             />
           </Form.Item>
 
           <Form.Item label="Phone Number" name="phoneNo" 
-            rules={[...phoneNoRules]}
+            rules={[...phoneNoRules]} // Validation rules for phone number input
           >
             <Input placeholder="Enter Phone Number"/>
           </Form.Item>
@@ -268,16 +276,16 @@ export default function ManageUsers() {
           </Form.Item>
 
           <Form.Item label="Password" name="password" 
-            rules={[...passwordRules]}
+            rules={[...passwordRules]} // Validation rules for password input
           >
             <Input.Password placeholder="Enter Password"/>
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              Submit {/* Submit button */}
             </Button>
             <Button onClick={() => setShowAddUserModal(false)} style={{ marginLeft: 8 }}>
-              Close
+              Close {/* Close button */}
             </Button>
           </Form.Item>
         </Form>
