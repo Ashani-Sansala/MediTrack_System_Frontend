@@ -8,20 +8,27 @@ import encrypt from '../../utils/Encryption';
 import { nameRules, emailRules, birthdayRules, phoneNoRules, disableFutureDates } from '../../utils/ValidationRules';
 import './EditUserProfile.scss';
 
+// API URL from environment variables
 const api_url = import.meta.env.VITE_API_URL;
+// Date format for the date picker
 const dateFormat = 'YYYY-MM-DD';
+// Secure local storage instance
 const ls = new SecureLS({ encodingType: 'aes' });
 
 const UserProfile = ({ visible, onClose }) => {
+  // Ant Design Form instance
   const [form] = Form.useForm();
+  // State variables
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFormTouched, setIsFormTouched] = useState(false);
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState(null);
 
+  // Get the username from secure local storage
   const username = ls.get('username');
 
+  // Fetch user details when the modal is visible
   useEffect(() => {
     if (visible) {
       fetchUserDetails();
@@ -33,6 +40,7 @@ const UserProfile = ({ visible, onClose }) => {
     }
   }, [visible]);
 
+  // Function to fetch user details from the server
   const fetchUserDetails = async () => {
     try {
       const response = await axios.post(`${api_url}/userProfile/getUserProfile`, { username });
@@ -61,12 +69,15 @@ const UserProfile = ({ visible, onClose }) => {
     }
   };
 
+  // Function to handle form submission
   const onFinish = async (values) => {
     try {
+      // Encrypt sensitive data
       const encryptedUsername = encrypt(username);
       const encryptedEmail = encrypt(values.email);
       const encryptedPhoneNo = encrypt(values.phoneNo);
 
+      // Prepare form data for submission
       const formData = new FormData();
       formData.append('username', encryptedUsername.value);
       formData.append('fullName', values.fullName);
@@ -78,6 +89,7 @@ const UserProfile = ({ visible, onClose }) => {
       formData.append('emailIv', encryptedEmail.iv);
       formData.append('phoneNoIv', encryptedPhoneNo.iv);
 
+      // Append avatar file if available
       if (avatarFile) {
         formData.append('avatar', avatarFile, avatarFile.name);
         console.log('Avatar file appended:', avatarFile.name);
@@ -85,11 +97,13 @@ const UserProfile = ({ visible, onClose }) => {
         console.log('No avatar file to append');
       }
 
+      // Log form data contents for debugging
       console.log('FormData contents:');
       for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
 
+      // Submit form data to the server
       const response = await axios.post(`${api_url}/userProfile/updateUserProfile`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -117,10 +131,12 @@ const UserProfile = ({ visible, onClose }) => {
     }
   };
 
+  // Handle form field changes to track if the form is touched
   const handleFieldsChange = () => {
     setIsFormTouched(form.isFieldsTouched());
   };
 
+  // Handle avatar file upload and resize
   const beforeUpload = (file) => {
     const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
     if (!validImageTypes.includes(file.type)) {
@@ -150,6 +166,7 @@ const UserProfile = ({ visible, onClose }) => {
     return null;
   }
 
+  // Determine user role
   const role = userDetails?.positionName === 'Admin' ? 'Admin' : 'Hospital Staff';
 
   return (

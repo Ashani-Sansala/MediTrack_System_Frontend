@@ -7,6 +7,7 @@ import '../../styles/DownloadButton.scss';
 
 const api_url = import.meta.env.VITE_API_URL;
 
+// Define table columns
 const columns = [
     {
         title: 'Move No',
@@ -52,21 +53,24 @@ const columns = [
         title: 'Access Frame',
         dataIndex: 'accessFrame',
         key: 'accessFrame',
-        render: (text) => <a href={text} target="_blank" rel="noopener noreferrer">Access Frame Here</a>, // Render function for rendering access footage as a link
+        // Render access footage as a clickable link
+        render: (text) => <a href={text} target="_blank" rel="noopener noreferrer">Access Frame Here</a>,
     },
 ];
 
 const TableComponent = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([]); // State to hold table data
 
     useEffect(() => {
-        fetchInitialData();
+        fetchInitialData(); // Fetch initial data when component mounts
     }, []);
 
+    // Function to fetch initial data
     const fetchInitialData = () => {
         fetch(`${api_url}/historicalRecords/table`)
             .then(response => response.json())
             .then(data => {
+                // Format data for table
                 const formattedData = data.map((row, index) => ({
                     key: index.toString(),
                     moveNo: row[0],
@@ -79,12 +83,14 @@ const TableComponent = () => {
                     time: formatTime(row[7]),
                     accessFrame: row[8]
                 }));
-                setData(formattedData);
+                setData(formattedData); // Update state with formatted data
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error)); // Handle errors
     };
 
+    // Function to handle search results
     const handleSearch = (searchResults) => {
+        // Format search results for table
         const formattedSearchResults = searchResults.map((row, index) => ({
             key: index.toString(),
             moveNo: row[0],
@@ -97,17 +103,16 @@ const TableComponent = () => {
             time: formatTime(row[7]),
             accessFrame: row[8]
         }));
-        setData(formattedSearchResults);
+        setData(formattedSearchResults); // Update state with formatted search results
     };
 
     // Format date function
     const formatDate = (dateString) => {
-        // Assuming dateString is in a format that can be parsed by Date constructor
-        const date = new Date(dateString);
-        return date.toLocaleDateString(); // Adjust format as needed
+        const date = new Date(dateString); // Convert date string to Date object
+        return date.toLocaleDateString(); // Return formatted date string
     };
 
-    // Convert time drom seconds to time format
+    // Memoized function to format time from seconds to HH:MM:SS
     const formatTime = useMemo(() => {
         return (seconds) => {
             const hours = Math.floor(seconds / 3600);
@@ -120,24 +125,21 @@ const TableComponent = () => {
         };
     }, []);
 
-
     return (
         <div>
-            <SearchBars onSearch={handleSearch} />
+            <SearchBars onSearch={handleSearch} /> {/* Search bar component */}
             <div className='table-container'>
                 <Table
-                    columns={columns}
-                    dataSource={data}
+                    columns={columns} // Define table columns
+                    dataSource={data} // Provide data source for table
                     pagination={{
-                        defaultPageSize: 10,
-                        showSizeChanger: true,
-                        pageSizeOptions: ['20', '50', '100'],
+                        defaultPageSize: 10, // Default number of rows per page
+                        showSizeChanger: true, // Show size changer dropdown
+                        pageSizeOptions: ['20', '50', '100'], // Options for number of rows per page
                     }}
                 />
-
-                <DownloadButton data={data} />
+                <DownloadButton data={data} /> {/* Button to download table data as PDF */}
             </div>
-
         </div>
     );
 };

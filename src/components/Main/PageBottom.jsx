@@ -1,35 +1,41 @@
-import '../../styles/PageBottom.scss';
-import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
-import logo from '../../assets/logo.png';
-import { FaX } from 'react-icons/fa6';
+import '../../styles/PageBottom.scss'; // Import the CSS for styling
+import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa'; // Import social media icons
+import logo from '../../assets/logo.png'; // Import the logo image
+import { FaX } from 'react-icons/fa6'; // Import another social media icon
 
 const PageBottom = () => {
     return (
         <footer className="footer">
             <div className="footer-content">
+                {/* Logo section */}
                 <div className="footer-logo">
-                    <img src={logo} alt="Company Logo" />
+                    <img src={logo} alt="Company Logo" /> {/* Company logo */}
                 </div>
+
+                {/* Information section */}
                 <div className="footer-info">
-                    <p>&copy; 2024 <br />Developed by Team Vision Crafters.</p>
+                    <p>&copy; 2024 <br />Developed by Team Vision Crafters.</p> {/* Copyright info */}
                     <nav className="footer-nav">
+                        {/* Navigation links */}
                         <a>Privacy Policy</a>
                         <a>Terms of Service</a>
                         <a>Contact Us</a>
                     </nav>
                 </div>
+
+                {/* Social media icons section */}
                 <div className="footer-icons">
                     <a>
-                        <FaFacebook />
+                        <FaFacebook /> {/* Facebook icon */}
                     </a>
                     <a>
-                        <FaX />
+                        <FaX /> {/* Placeholder for another social media icon */}
                     </a>
                     <a>
-                        <FaLinkedin />
+                        <FaLinkedin /> {/* LinkedIn icon */}
                     </a>
                     <a>
-                        <FaGithub />
+                        <FaGithub /> {/* GitHub icon */}
                     </a>
                 </div>
             </div>

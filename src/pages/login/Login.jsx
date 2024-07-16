@@ -6,8 +6,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import SecureLS from 'secure-ls';
 import axios from "axios";
 import clip from "../../assets/clip.mp4";
-import logo from "../../assets/logo.png";
-import encrypt from "../../utils/Encryption";
+import logo from "../../assets/logo.png"; 
+import encrypt from "../../utils/Encryption"; 
 import "./Login.scss";
 
 const api_url = import.meta.env.VITE_API_URL; // API base URL from environment variables
