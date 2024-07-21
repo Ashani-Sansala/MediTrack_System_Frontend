@@ -25,11 +25,69 @@ h3{
   color: orange;
 }
 .add-camera-button{
-  margin-left: 20px;
-  background-color: #43B749;
+  background-color: #17B169;
 }
 
 .search-input{
   height: 40px;
-  width: 800px;
+  width: 700px;
+  background-color: #f8f6f7;
+}
+
+.search-button{
+  background-color: #318CE7;
+}
+
+.ant-table {
+
+  .ant-table-thead > tr > th {
+    background-color: #F0F8FF;
+  }
+  
+}
+
+.ant-btn.edit-button {
+  background-color: #E5E4E2;
+  border: none;
+  color: black;
+}
+
+.ant-btn.edit-button {
+  &:hover:not(:disabled) {
+    background-color: #71797E !important;
+    color: white !important;
+    border-color: #87CEFA !important;
+  }
+}
+
+.ant-btn.save-button{
+  background-color: #007FFF;
+  border: none;
+  color: white;
+  margin-bottom: 5px;
+  width: 75px;
+  opacity: 0.85;
+}
+
+.ant-btn.save-button {
+  &:hover:not(:disabled) {
+    background-color: #5072A7 !important;
+    color: white !important;
+    border-color: #87CEFA !important;
+  }
+}
+
+.ant-btn.cancel-button{
+  background-color: #C41E3A;
+  color: white;
+  border: none;
+  width: 75px;
+  opacity: 0.85;
+}
+
+.ant-btn.cancel-button {
+  &:hover:not(:disabled) {
+    background-color: #A52A2A !important;
+    color: white !important;
+  }
 }

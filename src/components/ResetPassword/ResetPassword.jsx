@@ -64,6 +64,7 @@ const ResetPassword = ({ visible, onClose }) => {
             visible={visible}
             onCancel={handleCancel}
             footer={null} // No footer buttons
+            className='reset-password-modal'
         >
             <Form
                 form={form}
