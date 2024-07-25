@@ -9,7 +9,7 @@
   }
   .search-input{
     height: 40px;
-    width: 800px;
+    width: 785px;
   }
   Button{
     margin-left: 20px;
@@ -17,7 +17,27 @@
   }
 
 #add-user{
-  background-color: #43B749;
+  background-color: #17B169;
 }
 
+}
+.add-user-modal{
+  top: 0;
+  bottom: 0;
+}
+
+.ant-btn.remove-button{
+  padding: 5px 10px;
+  background-color: rgba(244, 67, 54, 0.15);
+  color: red;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.ant-btn.remove-button {
+  &:hover:not(:disabled) {
+    background-color: rgba(244, 67, 54, 0.25);
+  }
 }

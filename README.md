@@ -4,10 +4,12 @@
 
 This is the frontend of the MediTrack system developed using React-Vite.
 
-<img src="https://github.com/user-attachments/assets/b45e6cfc-3848-4166-bb04-2bbf6deea4af" width="400" />
-<img src="https://github.com/user-attachments/assets/835fa365-ded7-4756-94f3-ad496f23807c" width="400" />
-<img src="https://github.com/user-attachments/assets/f2b9c4f1-1b37-40ed-8bf7-80930899fd4d" width="400" />
-<img src="https://github.com/user-attachments/assets/c796f305-4fa6-4eac-a697-e785e4743b21" width="400" />
+<img src="https://github.com/user-attachments/assets/5534b775-6cf3-4269-a293-a48ade4a9dfa" width="380" />
+<img src="https://github.com/user-attachments/assets/c19eba0b-efb9-4c69-b3b5-6a1867c8edc0" width="380" />
+<img src="https://github.com/user-attachments/assets/177cac0e-d196-46cb-8372-8264dd9da7f9" width="380" />
+<img src="https://github.com/user-attachments/assets/5d7667cb-5ef4-476e-b5e8-ec325cca02b3" width="380" />
+<img src="https://github.com/user-attachments/assets/03d40a59-37d2-49aa-9a3e-ef943d472369" width="380" />
+<img src="https://github.com/user-attachments/assets/1d56d34d-2417-47be-9a6c-75790cabd8db" width="380" />
 
 ## Introduction
 

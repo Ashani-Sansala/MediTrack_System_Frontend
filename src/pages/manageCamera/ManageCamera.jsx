@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, Form, Input, Select, message, DatePicker } from 'antd';
+import { Table, Button, Modal, Form, Input, Select, message, DatePicker, Tooltip } from 'antd';
+import { ReloadOutlined, EditOutlined } from '@ant-design/icons'; 
 import dayjs from 'dayjs';
 import axios from 'axios';
 import { locationRules, ipAddressRules, modelRules, 
@@ -160,15 +161,16 @@ const CameraTable = () => {
         return editable ? (
           <span>
             <Button
+              className='save-button'
               onClick={() => save(record.cameraId)}
               style={{ marginRight: 8 }}
             >
               Save
             </Button>
-            <Button onClick={cancel}>Cancel</Button>
+            <Button className='cancel-button' onClick={cancel}>Cancel</Button>
           </span>
         ) : (
-          <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
+          <Button icon={<EditOutlined />} className="edit-button" disabled={editingKey !== ''} onClick={() => edit(record)}>
             Edit
           </Button>
         );
@@ -231,6 +233,11 @@ const CameraTable = () => {
     );
   };
 
+  // Handler for refreshing the page
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   return (
     <div>
       <h1>Manage Camera</h1>
@@ -243,10 +250,20 @@ const CameraTable = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button type="primary" onClick={handleSearch}>
+        <Button className="search-button" type="primary" onClick={handleSearch}>
           Search
         </Button>
         <Button className='add-camera-button' type="primary" onClick={() => setIsModalVisible(true)}>Add Camera</Button>
+        {/* Button to refresh the page */}
+        <Tooltip title="Refresh">
+            <Button 
+                type="primary" 
+                className='refresh-button' 
+                onClick={handleRefresh} 
+                icon={<ReloadOutlined />}
+                style={{ width: '40px', padding:'10px' }}
+            />
+          </Tooltip>
       </div>
       <Form form={editForm} component={false}>
         <Table

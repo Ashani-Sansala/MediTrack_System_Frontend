@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios'; 
 import dayjs from 'dayjs'; 
-import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker } from 'antd'; 
+import { Table, Input, Button, Modal, Form, Select, message, Popconfirm, DatePicker, Tooltip } from 'antd'; 
+import { ReloadOutlined, DeleteOutlined } from '@ant-design/icons'; 
 import { 
   usernameRules, nameRules, emailRules, passwordRules, birthdayRules, phoneNoRules, positionRules, disableFutureDates 
 } from '../../utils/ValidationRules'; 
@@ -10,7 +11,7 @@ import encrypt from '../../utils/Encryption';
 import './ManageUsers.scss'; 
 
 const api_url = import.meta.env.VITE_API_URL; // Fetching API URL from environment variables
-const admin_userid = import.meta.env.VITE_ADMIN_USERID; // Fetching admin user ID from environment variables
+const admin_category = import.meta.env.VITE_ADMIN_CAT; // Fetching admin user ID from environment variables
 
 const dateFormat = 'YYYY-MM-DD'; // Date format for date pickers
 
@@ -160,7 +161,7 @@ export default function ManageUsers() {
       render: (text) => dayjs(text).format(dateFormat) // Formatting birthday date
     },
     {
-      title: 'Phone Number',
+      title: 'Phone No.',
       dataIndex: 'phoneNo',
       key: 'phoneNo',
     },
@@ -171,9 +172,9 @@ export default function ManageUsers() {
     },
     {
       title: 'Role',
-      dataIndex: 'pId',
+      dataIndex: 'positionName',
       key: 'role',
-      render: (text) => (text === admin_userid ? 'Admin' : 'Hospital Staff'), // Displaying user role based on admin user ID
+      render: (text) => (text === 'Admin' ? 'Admin' : 'Hospital Staff'), // Displaying user role based on admin user ID
     },
     {
       title: 'Action',
@@ -185,11 +186,16 @@ export default function ManageUsers() {
           okText="Yes"
           cancelText="No"
         >
-          <Button danger>Remove</Button>
+          <Button icon={<DeleteOutlined />} className='remove-button' danger>Remove</Button>
         </Popconfirm>
       ),
     },
   ];
+
+  // Handler for refreshing the page
+  const handleRefresh = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="manage-users-container">
@@ -210,6 +216,16 @@ export default function ManageUsers() {
           <Button id='add-user' type="primary" onClick={openAddUserModal}>
             Add New User {/* Button to add new user */}
           </Button>
+          {/* Button to refresh the page */}
+          <Tooltip title="Refresh">
+            <Button 
+                type="primary" 
+                className='refresh-button' 
+                onClick={handleRefresh} 
+                icon={<ReloadOutlined />}
+                style={{ width: '40px', padding:'10px' }}
+            />
+          </Tooltip>
         </div>
       </div>
 
@@ -223,6 +239,7 @@ export default function ManageUsers() {
         visible={showAddUserModal}
         onCancel={() => setShowAddUserModal(false)}
         footer={null}
+        className='add-user-modal'
       >
         {/* User input form */}
         <Form layout="vertical" onFinish={handleAddUser} form={form}>
